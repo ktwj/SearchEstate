@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="content container">
+    </div> 
+    <div class="check">
+        {% if session['flag'] %}
+            <p>ようこそ、{{ session['name'] }} さん。
+                （最終操作：
+                    {{session['last_action'].year}}/{% if session['last_action'].month > 9 %}{{session['last_action'].month}}{%else%}0{{session['last_action'].month}}{%endif%}/{% if session['last_action'].day > 9 %}{{session['last_action'].day}}{%else%}0{{session['last_action'].day}}{%endif%} {% if session['last_action'].hour > 9 %}{{session['last_action'].hour}}{% else %}0{{session['last_action'].hour}}{%endif%}:{% if session['last_action'].minute > 9 %}{{session['last_action'].minute}}{% else %}0{{session['last_action'].minute}}{%endif%}:{% if session['last_action'].second > 9 %}{{session['last_action'].second}}{% else %}0{{session['last_action'].second}}{%endif%}
+                ）
+            </p>
+        {% else %}
+            <p>ようこそ、ゲスト さん</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

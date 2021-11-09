@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block body %}
+<script>
+    function check(){
+        if(window.confirm('チェックした物件メモを削除してよろしいですか？')){ return true; }
+        else{ return false; }
+    }
+</script>
+
+<h1>登録中の物件メモ</h1>
+
+{% if rooms|length > 0 %}
+    <form action="/delete" method="post" onSubmit="return check()">
+    {% for room in rooms %}
+        <table>
+            <tr>
+                <td>物件名</td>
+                <td>{{ room['title'] }}</td>
+            </tr>
+            <tr>
+                <td>最寄り駅アクセス</td>
+                <td>
+                    {% for near in room['near'] %}
+                        {{ near }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>賃料 + 管理費 + 各詳細</td>
+                <td>
+                    {% for i in range( room['cost'] | length ) %}
+                        {{ room['cost'][i] }} : <a href="{{ room['link'][i] }}" target="_blank">詳細</a><br>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>目的駅への所要時間・乗換回数</td>
+                <td>
+                    {% for transfer in room['transfer'] %}
+                        {{ transfer }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+        <input type="checkbox" name="id" value="{{room['id']}}">
+    {% endfor %}
+        <br><input type="submit" value="チェックした物件メモを削除する">
+    </form>
+
+{% else %}
+    <p>登録された物件メモがありません。</p>
+{% endif %}
+
+{% endblock %}

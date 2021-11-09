@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block body %}
+    {% if session['flag'] %}
+        <hi>この物件を登録しますか</hi>
+    {% else %}
+        <hi>登録にはログインが必要です</hi>
+    {% endif %}
+    <table>
+        <tr>
+            <td>物件名</td>
+            <td>{{ title }}</td>
+        </tr>
+        <tr>
+            <td>最寄り駅アクセス</td>
+            <td>
+                {% for near in nears %}
+                    {{ near }}<br>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>賃料 + 管理費 + 各詳細</td>
+            <td>
+                {% for cost, link in costs|zip(links) %}
+                    {{ cost }} : <a href="{{ link }}" target="_blank">詳細</a><br>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>目的駅への所要時間・乗換回数</td>
+            <td>
+                {% for transfer in transfers %}
+                    {{ transfer }}<br>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+    <hidden>
+        {% set nears_l = [] %}
+        {% for near in nears %}
+            {{ nears_l.append(near) or ''  }}
+        {% endfor %}
+
+        {% set costs_l = [] %}
+        {% for cost in costs %}
+            {{ costs_l.append(cost) or ''  }}
+        {% endfor %}
+
+        {% set links_l = [] %}
+        {% for link in links %}
+            {{ links_l.append(link) or ''  }}
+        {% endfor %}
+
+        {% set transfers_l = [] %}
+        {% for transfer in transfers %}
+            {{ transfers_l.append(transfer) or ''  }}
+        {% endfor %}
+    </hidden>
+    {% if session['flag'] %}
+    <form action="/done" method="post">
+        <input type="hidden" name="title" value="{{title}}">
+        <input type="hidden" name="nears_l" value="{{nears_l}}">
+        <input type="hidden" name="costs_l" value="{{costs_l}}">
+        <input type="hidden" name="links_l" value="{{links_l}}">
+        <input type="hidden" name="transfers_l" value="{{transfers_l}}">
+        <input type="submit" value="登録する">
+    </form>
+    {% endif %}
+{% endblock %}

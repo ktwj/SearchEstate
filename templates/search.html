@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>table{border:none;}</style>
+<form action="/search" method="post">
+    <table>
+    <tr>
+        <td>駅名</td>
+        <td><input type="text" name="station" value="茅場町"></td>
+    </tr>
+    <tr>
+        <td>所要時間</td>
+        <td>
+            <select name="min">
+                <option value="10" selected="selected">10分以内</option>
+                <option value="20">20分以内</option>
+                <option value="30">30分以内</option>
+                <option value="40">40分以内</option>
+                <option value="50">50分以内</option>
+                <option value="60">60分以内</option>
+                <option value="70">70分以内</option>
+                <option value="80">80分以内</option>
+                <option value="90">90分以内</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>乗り換え回数</td>
+        <td>
+            <select name="times">
+                <option value="-1" selected="selected">こだわらない</option>
+                <option value="0">乗換なし</option>
+                <option value="1">1回以内</option>
+                <option value="2">2回以内</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>家賃上限（管理費・共益費込み）</td>
+        <td>
+            <select name="rent">
+                <option value="9999999" selected="selected">指定しない</option>
+                <option value="3.0">3万円以下</option>
+                <option value="3.5">3.5万円以下</option>
+                <option value="4.0">4万円以下</option>
+                <option value="4.5">4.5万円以下</option>
+                <option value="5.0">5万円以下</option>
+                <option value="5.5">5.5万円以下</option>
+                <option value="6.0">6万円以下</option>
+                <option value="6.5">6.5万円以下</option>
+                <option value="7.0">7万円以下</option>
+                <option value="7.5">7.5万円以下</option>
+                <option value="8.0">8万円以下</option>
+                <option value="8.5">8.5万円以下</option>
+                <option value="9.0">9万円以下</option>
+                <option value="9.5">9.5万円以下</option>
+                <option value="10.0">10万円以下</option>
+                <option value="11.0">11万円以下</option>
+                <option value="12.0">12万円以下</option>
+                <option value="13.0">13万円以下</option>
+                <option value="14.0">14万円以下</option>
+                <option value="15.0">15万円以下</option>
+                <option value="16.0">16万円以下</option>
+                <option value="17.0">17万円以下</option>
+                <option value="18.0">18万円以下</option>
+                <option value="19.0">19万円以下</option>
+                <option value="20.0">20万円以下</option>
+                <option value="30.0">30万円以下</option>
+                <option value="50.0">50万円以下</option>
+                <option value="100.0">100万円以下</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>最寄り駅徒歩</td>
+        <td>
+            <select name="walktime">
+                <option value="9999999" selected="selected">指定しない</option>
+                <option value="1">1分</option>
+                <option value="5">5分</option>
+                <option value="7">7分</option>
+                <option value="10">10分</option>
+                <option value="15">15分</option>
+                <option value="20">20分</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>最寄り駅徒歩</td>
+        <td>
+            <input type="hidden" name="suumo" value="False">
+            <input type="hidden" name="athome" value="False">
+            <input type="hidden" name="homes" value="False">
+            <input type="checkbox" name="suumo" id="suumo"  value="True"><label for="suumo" >Suumo</label>
+            <input type="checkbox" name="athome" id="athome" value="True"><label for="athome">At home</label>
+            <input type="checkbox" name="homes" id="homes" value="True"><label for="homes">Homes</label>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="検索開始"></td>
+    </tr>
+    </table>
+</form>
+{% endblock %}

@@ -1,0 +1,64 @@
+<!doctype html>
+<title>簡易検索</title>
+<head>
+    <title>簡易検索</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table{
+            border:solid 1px;
+            margin:0 0 15px 0;
+        }
+        .links{
+            text-align:right;
+            margin-right:30px;
+            display:inline;
+            float:right}
+        .link a{
+            color:white
+        }
+    </style>
+</head>
+<body>
+ 
+<header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="/" class="navbar-brand d-flex align-items-center">
+                <strong>簡易検索</strong>
+            </a>
+        </div>
+        <div class="top_list">
+
+        </div>
+    </div>
+    <div class="links">
+        <strong>
+            <a href="/">トップへ</a>
+
+        {% if not session['flag'] %}
+            <a href="/login">ログインへ</a>
+            <a href="/reg">登録へ</a>
+        {% endif %}
+
+        {% if session['flag'] %}
+            <a href="/logout">ログアウト</a>
+        {%endif%}
+
+            <a href="/search">検索</a>
+
+        {% if session['flag'] %}
+            <a href="/lists/{{ session['id'] }}">登録中の物件メモ</a>
+        {% endif %}
+        </strong>
+    </div>
+</header>
+<br>
+
+<div class="container">
+    {% block body %}
+    {% endblock %}
+</div>
+</body>
+</html>

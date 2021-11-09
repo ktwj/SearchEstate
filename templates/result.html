@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block body %}
+
+    <h1>検索結果（ {{l}} 件 ）</h1>
+    <p>条件（
+        {{station}}駅まで 
+        {{min}}分以内
+        {% if times!='-1'%}、乗り換え{{times}}回以内{%endif%}
+        {% if rent!='9999999' %}、{{rent}}万円以内{%endif%}
+        {% if walktime !='9999999'%}、最寄り駅徒歩{{walktime}}分{%endif%}
+        ）
+    </p>
+    {% if l!=0 %}
+        {% for result in results %}
+            <table>
+                <tr>
+                    <td>物件名</td>
+                    <td>{{ result[0] }}</td>
+                </tr>
+                <tr>
+                    <td>最寄り駅アクセス</td>
+                    <td>
+                        {% for near in result[1] %}
+                            {{ near }}<br>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>賃料 + 管理費 + 各詳細</td>
+                    <td>
+                        {% for i in range( result[2] | length ) %}
+                            {{ result[3][i] }} : <a href="{{ result[2][i] }}" target="_blank">詳細</a><br>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>目的駅への所要時間・乗換回数</td>
+                    <td>
+                        {% for transfer in result[4] %}
+                            {{ transfer }}<br>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+            <hidden>
+                {% set nears = [] %}
+                {% for near in result[1] %}
+                    {{ nears.append(near) or '' }}
+                {% endfor %}
+
+                {% set costs = [] %}
+                {% for cost in result[3] %}
+                    {{ costs.append(cost) or ''  }}
+                {% endfor %}
+
+                {% set links = [] %}
+                {% for link in result[2] %}
+                    {{ links.append(link) or ''  }}
+                {% endfor %}
+
+                {% set transfers = [] %}
+                {% for transfer in result[4] %}
+                    {{ transfers.append(transfer) or ''  }}
+                {% endfor %}
+            </hidden>
+            <form action="/update" method="post">
+                <input type="hidden" name="title" value="{{ result[0] }}">
+                <input type="hidden" name="nears" value="{{nears}}">
+                <input type="hidden" name="costs" value="{{costs}}">
+                <input type="hidden" name="links" value="{{links}}">
+                <input type="hidden" name="transfers" value="{{transfers}}">
+                <input type="submit" value="登録画面へ">
+            </form>
+        {% endfor %}
+    {% else %}
+        <p>条件に見合う物件がありません</p>
+    {% endif %}
+
+{% endblock %}
