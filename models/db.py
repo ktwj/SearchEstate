@@ -5,14 +5,14 @@ from sqlalchemy.ext.declarative import declarative_base
 import datetime, hashlib, psycopg2
 from flask import session as ss
 
-database = 'pydb'
-user = 'postgres'
-password = 'pass'
-host = 'localhost'
+database = 'dgp2oe0v7u7ba'
+user = 'fcjytqjkmrdcth'
+password = 'd0d4acde298c07fedd9acf037ec024ffd15a8ee6ea2ea07876d8ab7dc840b256'
+host = 'ec2-23-23-181-251.compute-1.amazonaws.com'
 port = '5432'
 db_name = 'pydb'
 
-uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{db_name}'
+uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'
 
 engine = create_engine(uri,echo=True)
 
