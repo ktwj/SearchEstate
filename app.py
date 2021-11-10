@@ -21,15 +21,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = uri
 db = SQLAlchemy(app)
 
 JST = datetime.timezone(timedelta(hours=+9), 'JST')
-def getCon():
-    return pymysql.connect(
-        host = 'localhost',
-        db = 'pydb',
-        user = 'user',
-        password = 'pass',
-        charset='utf8',
-        cursorclass = pymysql.cursors.DictCursor
-    )
 def str_to_list(str):
     return re.sub('(\[|\'|\]|\s)', '', str).split(',')
 # 20分経過で自動ログアウト
