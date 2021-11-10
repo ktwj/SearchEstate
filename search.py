@@ -34,7 +34,7 @@ def ope(station, min, times, rent, walktime, sites):
     # sites に True が入っていたらブラウザ起動
     if True in sites:
         # driver 起動
-        driver = webdriver.Chrome('C:\chrome_driver\chromedriver', options=options)
+        driver = webdriver.Chrome(options=options)
         driver.implicitly_wait(10)
 
         if sites[0]:
