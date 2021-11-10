@@ -2,16 +2,19 @@ from sqlalchemy import *
 from sqlalchemy import Column, Integer, VARCHAR, DateTime, TEXT
 from sqlalchemy.orm import *
 from sqlalchemy.ext.declarative import declarative_base
-import datetime, hashlib, binascii
+import datetime, hashlib, psycopg2
 from flask import session as ss
 
-uri = 'mysql+pymysql://{user}:{password}@{host}/{db_name}?charset=utf8'.format(**{
-    'user': 'user',
-    'password': 'pass',
-    'host': 'localhost',
-    'db_name': 'pydb'
-})
-engine = create_engine(uri,convert_unicode=True,echo=True)
+database = 'pydb'
+user = 'postgres'
+password = 'pass'
+host = 'localhost'
+port = '5432'
+db_name = 'pydb'
+
+uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{db_name}'
+
+engine = create_engine(uri,echo=True)
 
 session = scoped_session(
     sessionmaker(
@@ -47,7 +50,7 @@ class Users(db):
     __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)
     name = Column(VARCHAR(32))
-    password = Column(VARCHAR(32))
+    password = Column(VARCHAR(64))
     created_at = Column(DateTime())
     def __init__(self, name, password):
         self.name = name
@@ -64,7 +67,7 @@ class Rooms(db):
     cost = Column(TEXT)
     link = Column(TEXT)
     transfer = Column(TEXT)
-    deleted_at = Column(DateTime(), default=null)
+    deleted_at = Column(DateTime())
 
     def __init__(self,user_id,title,near,cost,link,transfer):
         self.user_id=user_id
@@ -96,6 +99,12 @@ def del_room(ids):
         room.deleted_at = datetime.datetime.now()
     session.commit()
 
+def list_of_rooms(user_id):
+    rooms = session.query(Rooms).filter(Rooms.user_id==user_id).filter(or_(Rooms.deleted_at==None, Rooms.deleted_at=="2021-01-01 00:00:00")).all()
+    room = []
+
+    return rooms
+        
 Session = sessionmaker(bind=engine)
 db_session = Session()
 db.metadata.create_all(engine)

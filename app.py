@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, session
 import datetime, pymysql, re
 from flask_sqlalchemy import SQLAlchemy
-from models.db import Users, Rooms, uri, add_user, add_room, del_room, check_user, hashed
+from models.db import Users, Rooms, uri, add_user, add_room, del_room, check_user, list_of_rooms
 from datetime import timedelta
 from search import ope
 import traceback
@@ -107,17 +107,13 @@ def register():
 def lists(user_id):
     if session_time_check():return redirect('/')
 
-    sql = f'select * from rooms where user_id={user_id} and deleted_at is NULL or deleted_at = "0000-00-00 00:00:00"'
-    con = getCon()
-    cursor = con.cursor()
-    cursor.execute(sql)
-    rooms = cursor.fetchall()
-
+    rooms = list_of_rooms(user_id)
+    
     for room in rooms:
-        room['near'] = str_to_list(room['near'])
-        room['cost'] = str_to_list(room['cost'])
-        room['link'] = str_to_list(room['link'])
-        room['transfer'] = str_to_list(room['transfer'])
+        room.near = str_to_list(room.near)
+        room.cost = str_to_list(room.cost)
+        room.link = str_to_list(room.link)
+        room.transfer = str_to_list(room.transfer)
 
     return render_template('lists.html', rooms=rooms)
 
@@ -196,4 +192,4 @@ def delete():
         return redirect('/')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
