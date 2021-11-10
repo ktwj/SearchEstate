@@ -18,6 +18,7 @@ app.permanent_session_lifetime = timedelta(minutes=60)
 
 # db.pyのuriをデータベースURIに
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 JST = datetime.timezone(timedelta(hours=+9), 'JST')
