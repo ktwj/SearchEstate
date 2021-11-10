@@ -51,7 +51,7 @@ class Users(db):
     id = Column(Integer(), primary_key=True)
     name = Column(VARCHAR(32))
     password = Column(VARCHAR(64))
-    created_at = Column(DateTime())
+    deleted_at = Column(DateTime())
     def __init__(self, name, password):
         self.name = name
         self.password = hashed(name,password,100)
