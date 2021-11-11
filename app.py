@@ -1,9 +1,9 @@
 from flask import Flask, request, render_template, redirect, session
-import datetime, pymysql, re
 from flask_sqlalchemy import SQLAlchemy
 from models.db import Users, Rooms, uri, add_user, add_room, del_room, check_user, list_of_rooms
+from pysrc.search import ope
 from datetime import timedelta
-from search import ope
+import datetime, re
 import traceback
 
 app = Flask(__name__)
@@ -111,6 +111,7 @@ def lists(user_id):
 
 # 物件検索
 @app.route('/search', methods=['GET','POST'])
+@celery.task
 def search():
     if session_time_check():return redirect('/')
 
@@ -124,9 +125,7 @@ def search():
         walktime = request.form['walktime']
         # Flaskは同名formは最初のvalueを送るので、配列化し最後の一つを取り出す。
         sites = [request.form.getlist('suumo')[-1], request.form.getlist('athome')[-1], request.form.getlist('homes')[-1]]
-        print(sites)
         sites = [True if i == 'True' else False for i in sites]
-        print(sites)
         results = ope(station, min, times, rent, walktime, sites)
         return render_template('result.html', results = results,station=station,min=min,times=times,rent=rent,walktime=walktime,l=len(results))
     else:
