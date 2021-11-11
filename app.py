@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 from models.db import Users, Rooms, uri, add_user, add_room, del_room, check_user, list_of_rooms
 from pysrc.search import ope
-from pysrc.worker import conn
+from worker import conn
 from datetime import timedelta
 import datetime, re, os
 import traceback
