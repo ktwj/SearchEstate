@@ -111,7 +111,6 @@ def lists(user_id):
 
 # 物件検索
 @app.route('/search', methods=['GET','POST'])
-@celery.task
 def search():
     if session_time_check():return redirect('/')
 

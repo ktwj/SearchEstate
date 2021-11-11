@@ -7,7 +7,9 @@ from selenium.webdriver.support import select
 from selenium.webdriver.support.select import Select
 from time import sleep
 import logging, random
+from pysrc import celery
 
+@celery.task
 def ope(station, min, times, rent, walktime, sites):
     options = webdriver.ChromeOptions()
     user_agents = [
