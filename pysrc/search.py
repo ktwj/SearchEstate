@@ -373,6 +373,7 @@ def ope(station, min, times, rent, walktime, sites):
                         item.append(transfers_l)
                         l.append(item)
             except:
+                logger.exception('Exception 2: ' + str(e))
                 return l
 
     return l

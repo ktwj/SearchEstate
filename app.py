@@ -128,7 +128,7 @@ def search():
         sites = [request.form.getlist('suumo')[-1], request.form.getlist('athome')[-1], request.form.getlist('homes')[-1]]
         sites = [True if i == 'True' else False for i in sites]
         q = Queue(connection=conn)
-        results = q.enqueue(ope, station, min, times, rent, walktime, sites)
+        results = q.enqueue(ope, station, min, times, rent, walktime, sites, job_timeout=6000)
         return render_template('result.html', results = results,station=station,min=min,times=times,rent=rent,walktime=walktime,l=len(results))
     else:
         redirect('/')
