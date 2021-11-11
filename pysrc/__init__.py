@@ -1,6 +1,6 @@
 from flask import Flask
 from pysrc.celery_maker import make_celery
-import settings
+from pysrc import settings
 
 app = Flask(__name__)
 
