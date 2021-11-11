@@ -46,36 +46,29 @@ def ope(station, min, times, rent, walktime, sites):
                 # suumo　接続    
                 init_url = 'http://suumo.jp/chintai/kanto'
                 driver.get(init_url)
-                sleep(10)
 
                 # 賃貸検索へ
                 search_by_time = driver.find_element(By.CLASS_NAME, 'btn_topsearch01')
                 search_by_time.click()
 
-                sleep(10)
-
                 # 駅名入力
                 select_station = driver.find_element(By.CLASS_NAME, 'js-ekiTextBox')
                 select_station.send_keys(station)
-                sleep(3)
 
                 # 上記駅までの所要時間入力
                 select_time = driver.find_elements(By.CLASS_NAME, 'js-removeEnsen')[0]
                 select1 = Select(select_time)
                 select1.select_by_value(min)
-                sleep(3)
 
                 # 乗り換え回数入力
                 select_times = driver.find_elements(By.CLASS_NAME, 'js-removeEnsen')[1]
                 select2 = Select(select_times)
                 select2.select_by_value(times)
-                sleep(3)
 
                 # 賃料・管理費・共益費の合計入力
                 select_limit = driver.find_element(By.CLASS_NAME, 'selectunit').find_elements(By.TAG_NAME, 'select')[1]
                 select3 = Select(select_limit)
                 select3.select_by_value(rent)
-                sleep(3)
 
                 # 管理費共益費込みボタンクリック
                 select_pay = driver.find_element(By.ID, 'co0')
@@ -84,7 +77,6 @@ def ope(station, min, times, rent, walktime, sites):
                 # 最寄り駅徒歩所要時間上限クリック
                 time2walk = driver.find_element(By.XPATH, "//input[@name='et' and @value='"+walktime+"']")
                 time2walk.click()
-                sleep(3)
 
                 # 検索ボタン クリック
                 submit = driver.find_element(By.CLASS_NAME, 'js-searchBtn')
@@ -151,7 +143,6 @@ def ope(station, min, times, rent, walktime, sites):
                     if flg:break
                             
                     next = driver.find_elements(By.XPATH, '//div/p[@class="pagination-parts"]/a')
-                    sleep(5)
 
                     if len(next) == 0:
                         break
