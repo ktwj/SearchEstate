@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from models.db import Users, Rooms, uri, add_user, add_room, del_room, check_user, list_of_rooms
 from pysrc.search import ope
 from datetime import timedelta
-import datetime, re
+import datetime, re, os
 import traceback
 
 app = Flask(__name__)
@@ -182,4 +182,4 @@ def delete():
         return redirect('/')
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
