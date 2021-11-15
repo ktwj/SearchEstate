@@ -375,7 +375,7 @@ min = '10'
 times = '0'
 rent = '6.0'
 walktime = '5'
-sites = [False, False, True]
+sites = [True, False, False]
 
 l = ope(station, min, times, rent, walktime, sites)
 
