@@ -3,14 +3,12 @@
 <script>
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : '{your-app-id}',
+        appId      : '189741423327513',
         cookie     : true,
         xfbml      : true,
-        version    : '{api-version}'
-      });
-        
-      FB.AppEvents.logPageView();   
-        
+        version    : 'v2.1}'
+      });        
+      FB.AppEvents.logPageView();           
     };
   
     (function(d, s, id){
@@ -24,6 +22,12 @@
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
     });
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
   </script>
 <div class="content container">
     </div> 
@@ -41,6 +45,7 @@
             scope="public_profile,email"
             onlogin="checkLoginState();">
         </fb:login-button>
+        <!--password   : 'ca245b789e5249683df034cff10a31cb' -->
     </div>
 
 {% endblock %}
