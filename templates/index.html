@@ -1,23 +1,22 @@
 {% extends "base.html" %}
 {% block body %}
 <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '189741423327513',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v2.1}'
-      });        
-      FB.AppEvents.logPageView();           
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '189741423327513',
+      xfbml      : true,
+      version    : 'v12.0'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
      
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
@@ -32,6 +31,12 @@
 <div class="content container">
     </div> 
     <div class="check">
+        <div
+            class="fb-like"
+            data-share="true"
+            data-width="450"
+            data-show-faces="true">
+        </div>
         {% if session['flag'] %}
             <p>ようこそ、{{ session['name'] }} さん。
                 （最終操作：
@@ -41,9 +46,7 @@
         {% else %}
             <p>ようこそ、ゲスト さん</p>
         {% endif %}
-        <fb:login-button 
-            scope="public_profile,email"
-            onlogin="checkLoginState();">
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
         </fb:login-button>
         <!--password   : 'ca245b789e5249683df034cff10a31cb' -->
     </div>
