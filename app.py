@@ -9,12 +9,6 @@ import datetime, re, os, logging
 import traceback
 
 app = Flask(__name__)
-app.logger.debug('DEBUG')
-app.logger.info('INFO')
-app.logger.warning('WARNING')
-app.logger.error('ERROR')
-app.logger.critical('CRITICAL')
-logging.basicConfig(level=logging.INFO)
 
 # zip利用
 app.jinja_env.filters['zip'] = zip
@@ -110,8 +104,10 @@ def register():
 @app.route('/fbin', methods=['POST'])
 def fbin():
     try:
+        print('aaaaaaaaaaaaaaaaaaaaaaa')
         name = request.form['name']
         fbid = request.form['fbid']
+        print('xxxxxxxxxxxxxx')
         if session['flag']:
             if session['fbid']:
                 return redirect('/')
@@ -134,6 +130,7 @@ def fbin():
                 return redirect('/')
     except Exception as e:
         print(f'{e}')
+        return redirect('/')
 
 # ログインユーザーの登録した物件メモ一覧
 @app.route('/lists/<user_id>')
