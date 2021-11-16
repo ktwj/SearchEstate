@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template, redirect, session, abort
+from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
 from pysrc.search import ope
 from worker import conn
 from datetime import timedelta
-import datetime, re, os
+import datetime, re, os, logging
 import traceback
 
 app = Flask(__name__)
