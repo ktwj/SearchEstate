@@ -109,24 +109,26 @@ def fbin():
         fbid = request.form['fbid']
         print('xxxxxxxxxxxxxx')
         if session['flag']:
+            print('session[flag] = True')
             if session['fbid']:
+                print(f'session[fbid] = exist = {session["fbid"]}')
                 return redirect('/')
             else:
+                print('session[fbid] = Flase')
+                print(f'session[id] = {session["id"]}')
                 add_fbid(session['id'], fbid)
                 return redirect('/')
         else:
-            print('6')
+            print('session[flag] = False ')
             user = check_fb_user(fbid)
             if user:
-                print('7')
+                print('user = True')
                 login_user(user)
-                print('8')
                 return render_template('login_confirm.html', name = session['name'], id = session['id'])
             else:
-                print('9')
+                print('user = False')
                 new_user = Users(name, fbid, 'fb')
                 add_user(new_user)
-                print('10')
                 return redirect('/')
     except Exception as e:
         print(f'{e}')
