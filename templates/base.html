@@ -27,7 +27,11 @@
             version    : 'v12.0'
         });
         FB.AppEvents.logPageView();
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
     };
+
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
@@ -35,6 +39,8 @@
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+
         function poster(path, params, method="post"){
             console.log('2')
             const form = document.createElement('form');
