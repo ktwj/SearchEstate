@@ -103,8 +103,8 @@ def register():
 # FBログイン、登録
 @app.route('/fbin', methods=['POST'])
 def fbin():
-    print('5')
     try:
+        print('5')
         name, fbid = request['name'], request['fbid']
         if session['flag']:
             if session['fbid']:
