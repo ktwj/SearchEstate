@@ -108,9 +108,9 @@ def fbin():
     try:
         name = request.form['name']
         fbid = request.form['fbid']
-        if session['flag']:
+        if 'flag' in session and session['flag']:
             print('session[flag] = True')
-            if session['fb']:
+            if 'fb' in session and session['fb']:
                 print(f'session[fb] = exist = {session["fb"]}')
                 return redirect('/')
             else:
@@ -118,7 +118,7 @@ def fbin():
                 print(f'session[id] = {session["id"]}')
                 add_fbid(session['id'], fbid)
                 return redirect('/')
-        else:
+        else:               # ログアウト時
             print('session[flag] = False ')
             user = check_fb_user(fbid)
             if user:
