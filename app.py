@@ -104,9 +104,8 @@ def register():
 @app.route('/fbin', methods=['POST'])
 def fbin():
     try:
-        print('5')
-        name = request['name']
-        fbid = request['fbid']
+        name = request.form['name']
+        fbid = request.form['fbid']
         if session['flag']:
             if session['fbid']:
                 return redirect('/')
