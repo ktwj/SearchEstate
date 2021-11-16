@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
-from models.db import Users, Rooms, uri, add_user, add_room, del_room, check_user, list_of_rooms
+from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
 from pysrc.search import ope
 from worker import conn
 from datetime import timedelta
@@ -42,6 +42,13 @@ def session_time_check():
             else:
                 session['last_action'] = now
     return False
+def login_user(user):
+    session['id'] = user.id
+    session['name'] = user.name
+    session['flag'] = True
+    session['last_action'] = datetime.datetime.now()
+    if user.fbid:
+        session['fb'] = True
 
 # トップ画面へ
 @app.route('/')
@@ -61,10 +68,7 @@ def login():
             password = request.form['password']
             user = check_user(name,password)
             if user:
-                session['id'] = user.id
-                session['name'] = user.name
-                session['flag'] = True
-                session['last_action'] = datetime.datetime.now()
+                login_user(user)
                 return render_template('login_confirm.html', name = session['name'], id = session['id'])
             else:
                 return render_template('login.html')
@@ -90,11 +94,31 @@ def register():
     elif request.method == 'POST':
         name = request.form["name"]
         password = request.form["password"]
-        new_user = Users(name, password)
+        new_user = Users(name, password, 'normal')
         add_user(new_user)
         return redirect('/')
     else:
         return redirect('/')
+
+# FBログイン、登録
+@app.route('/fbin', methods=['POST'])
+def fbin():
+    name, fbid = request['name'], request['fbid']
+    if session['flag']:
+        if session['fbid']:
+            return redirect('/')
+        else:
+            add_fbid(session['id'], fbid)
+            return redirect('/')
+    else:
+        user = check_fb_user(fbid)
+        if user:
+            login_user(user)
+            return render_template('login_confirm.html', name = session['name'], id = session['id'])
+        else:
+            new_user = Users(name, fbid, 'fb')
+            add_user(new_user)
+            return redirect('/')
 
 # ログインユーザーの登録した物件メモ一覧
 @app.route('/lists/<user_id>')

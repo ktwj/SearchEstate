@@ -52,9 +52,15 @@ class Users(db):
     name = Column(VARCHAR(32))
     password = Column(VARCHAR(64))
     deleted_at = Column(DateTime())
-    def __init__(self, name, password):
+    fbid = Column(TEXT())
+    def __init__(self, name, words, types):
         self.name = name
-        self.password = hashed(name,password,100)
+        if types == 'fb':
+            self.fbid = words
+        elif types == 'normal':
+            self.password = hashed(name,words,100)
+        else:
+            self.password = hashed(name,words,100)
     def __repr__(self):
         return f'Users {self.id} / {self.name} / {self.password}'
 
@@ -85,9 +91,17 @@ def add_user(user):
     session.commit()
 
 def check_user(name,password):
-    print(name,password)
     user = session.query(Users).filter(Users.name==name).filter(Users.password==hashed(name,password,100)).first()
     return user
+
+def check_fb_user(fbid):
+    user = session.query(Users).filter(Users.fbid==fbid).first()
+    return user
+
+def add_fbid(id, fbid):
+    user = session.query(Users).filter(Users.id==id).first()
+    user.fbid = fbid
+    session.commit()
 
 def add_room(room):
     session.add(room)
