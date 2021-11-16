@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% block body %}
 <script>
-
     function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
         console.log('statusChangeCallback');
-        console.log(response);                   // The current login status of the person.
+        console.log(response.status);                   // The current login status of the person.
         if (response.status === 'connected') {   // Logged into your webpage and Facebook.
             testAPI();  
         } else {                                 // Not logged into your webpage or we are unable to tell.
@@ -22,12 +21,11 @@
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
-            document.getElementById('status').innerHTML = 'Thanks for logging in, ' + typeof(response.id) + '!';
+            document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.id + '!';
         });
     }
     function goin(){
         FB.api('/me', function(response){
-            console.log('1')
             poster('/fbin', {'fbid':response.id, 'name':response.name});
         });
     }

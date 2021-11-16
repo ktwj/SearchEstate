@@ -95,10 +95,12 @@ def check_user(name,password):
     return user
 
 def check_fb_user(fbid):
+    print(f'check fb user fbid:{fbid}')
     user = session.query(Users).filter(Users.fbid==fbid).first()
     return user
 
 def add_fbid(id, fbid):
+    print(f'add fbid id:{id} fbid:{fbid}')
     user = session.query(Users).filter(Users.id==id).first()
     user.fbid = fbid
     session.commit()
