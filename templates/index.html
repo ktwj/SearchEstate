@@ -46,7 +46,7 @@
     }
     function goin(){
         FB.api('/me', function(response){
-            poster('/fbin', {'id':response.id, 'name':response.name});
+            poster('/fbin', {'fbid':response.id, 'name':response.name});
         });
     }
   </script>
