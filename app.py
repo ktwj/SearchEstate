@@ -103,22 +103,25 @@ def register():
 # FBログイン、登録
 @app.route('/fbin', methods=['POST'])
 def fbin():
-    name, fbid = request['name'], request['fbid']
-    if session['flag']:
-        if session['fbid']:
-            return redirect('/')
+    try:
+        name, fbid = request['name'], request['fbid']
+        if session['flag']:
+            if session['fbid']:
+                return redirect('/')
+            else:
+                add_fbid(session['id'], fbid)
+                return redirect('/')
         else:
-            add_fbid(session['id'], fbid)
-            return redirect('/')
-    else:
-        user = check_fb_user(fbid)
-        if user:
-            login_user(user)
-            return render_template('login_confirm.html', name = session['name'], id = session['id'])
-        else:
-            new_user = Users(name, fbid, 'fb')
-            add_user(new_user)
-            return redirect('/')
+            user = check_fb_user(fbid)
+            if user:
+                login_user(user)
+                return render_template('login_confirm.html', name = session['name'], id = session['id'])
+            else:
+                new_user = Users(name, fbid, 'fb')
+                add_user(new_user)
+                return redirect('/')
+    except:
+        traceback.print_exc()
 
 # ログインユーザーの登録した物件メモ一覧
 @app.route('/lists/<user_id>')
