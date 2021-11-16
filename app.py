@@ -109,7 +109,7 @@ def fbin():
         if session['flag']:
             print('session[flag] = True')
             if session['fb']:
-                print(f'session[fbid] = exist = {session["fb"]}')
+                print(f'session[fb] = exist = {session["fb"]}')
                 return redirect('/')
             else:
                 print('session[fbid] = Flase')
@@ -129,7 +129,7 @@ def fbin():
                 add_user(new_user)
                 return redirect('/')
     except Exception as e:
-        print(f'{e}')
+        print(f'except:{e}')
         return redirect('/')
 
 # ログインユーザーの登録した物件メモ一覧
