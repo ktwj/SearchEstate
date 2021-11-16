@@ -103,6 +103,7 @@ def register():
 # FBログイン、登録
 @app.route('/fbin', methods=['POST'])
 def fbin():
+    print('5')
     try:
         name, fbid = request['name'], request['fbid']
         if session['flag']:
@@ -112,16 +113,22 @@ def fbin():
                 add_fbid(session['id'], fbid)
                 return redirect('/')
         else:
+            print('6')
             user = check_fb_user(fbid)
             if user:
+                print('7')
                 login_user(user)
+                print('8')
                 return render_template('login_confirm.html', name = session['name'], id = session['id'])
             else:
+                print('9')
                 new_user = Users(name, fbid, 'fb')
                 add_user(new_user)
+                print('10')
                 return redirect('/')
     except:
-        traceback.print_exc()
+        t = traceback.format_exc()
+        print(t)
 
 # ログインユーザーの登録した物件メモ一覧
 @app.route('/lists/<user_id>')
