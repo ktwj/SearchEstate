@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, session
+from flask import Flask, request, render_template, redirect, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
@@ -9,6 +9,12 @@ import datetime, re, os
 import traceback
 
 app = Flask(__name__)
+app.logger.debug('DEBUG')
+app.logger.info('INFO')
+app.logger.warning('WARNING')
+app.logger.error('ERROR')
+app.logger.critical('CRITICAL')
+logging.basicConfig(level=logging.INFO)
 
 # zip利用
 app.jinja_env.filters['zip'] = zip
@@ -126,9 +132,8 @@ def fbin():
                 add_user(new_user)
                 print('10')
                 return redirect('/')
-    except:
-        t = traceback.format_exc()
-        print(t)
+    except Exception as e:
+        print(f'{e}')
 
 # ログインユーザーの登録した物件メモ一覧
 @app.route('/lists/<user_id>')
