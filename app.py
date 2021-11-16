@@ -104,14 +104,12 @@ def register():
 @app.route('/fbin', methods=['POST'])
 def fbin():
     try:
-        print('aaaaaaaaaaaaaaaaaaaaaaa')
         name = request.form['name']
         fbid = request.form['fbid']
-        print('xxxxxxxxxxxxxx')
         if session['flag']:
             print('session[flag] = True')
-            if session['fbid']:
-                print(f'session[fbid] = exist = {session["fbid"]}')
+            if session['fb']:
+                print(f'session[fbid] = exist = {session["fb"]}')
                 return redirect('/')
             else:
                 print('session[fbid] = Flase')
