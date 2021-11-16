@@ -42,11 +42,9 @@
 
 
         function poster(path, params, method="post"){
-            console.log('2')
             const form = document.createElement('form');
             form.method = method;
             form.action = path
-            console.log('3')
 
             for (const key in params){
                 if (params.hasOwnProperty(key)){
@@ -58,7 +56,6 @@
                     console.log(params[key])
                 }
             }
-            console.log('4')
             document.body.appendChild(form);
             form.submit();
         }

@@ -105,7 +105,8 @@ def register():
 def fbin():
     try:
         print('5')
-        name, fbid = request['name'], request['fbid']
+        name = request['name']
+        fbid = request['fbid']
         if session['flag']:
             if session['fbid']:
                 return redirect('/')

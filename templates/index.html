@@ -50,6 +50,7 @@
         {% else %}
             <p>ようこそ、ゲスト さん</p>
         {% endif %}
+        {{ session['fb'] }}
         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
         </fb:login-button>
         <!--password   : 'ca245b789e5249683df034cff10a31cb' -->
