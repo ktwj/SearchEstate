@@ -17,6 +17,7 @@
             statusChangeCallback(response);
         });
     }
+
     function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
@@ -49,7 +50,7 @@
         {% else %}
             <p>ようこそ、ゲスト さん</p>
         {% endif %}
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        <fb:login-button scope="public_profile,email" onlogin="goin();">
         </fb:login-button>
         <!--password   : 'ca245b789e5249683df034cff10a31cb' -->
     </div>
