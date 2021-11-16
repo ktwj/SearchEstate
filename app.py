@@ -49,6 +49,8 @@ def login_user(user):
     session['last_action'] = datetime.datetime.now()
     if user.fbid:
         session['fb'] = True
+    else:
+        session['fb'] = False
 
 # トップ画面へ
 @app.route('/')
