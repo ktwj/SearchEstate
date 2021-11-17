@@ -42,7 +42,7 @@ def opera():
         ]
 
     USER_AGENT = user_agents[random.randrange(0, len(user_agents), 1)]
-    options.add_argument('--headless')                 # headlessモードを使用する
+    #options.add_argument('--headless')                 # headlessモードを使用する
     options.add_argument('--disable-gpu')              # headlessモードで暫定的に必要なフラグ(そのうち不要になる)
     options.add_argument('--disable-extensions')       # すべての拡張機能を無効にする。ユーザースクリプトも無効にする
     options.add_argument('--proxy-server="socks5://127.0.0.1:port"') # Proxy経由ではなく直接接続する
@@ -89,7 +89,7 @@ def opera():
 
                     search_item = [bukken_num, title, address, line1,station1,time1, line2,station2,time2, line3,station3,time3, price, rent, fee, dep, key, room_type, room_size, url]
                     search_list.append(search_item)
-                    bukken_num += 1
+                    #bukken_num += 1
 
     driver.get(tokyo)
     html = driver.page_source.encode('utf-8')
@@ -98,6 +98,7 @@ def opera():
     get(lists, 0)
     today = datetime.date.today().strftime('%Y_%m_%d')
     sl = pd.DataFrame(search_list, columns=['bukken_num', 'title', 'address', 'line1','station1','time1','line2','station2','time2','line3','station3','time3','price', 'rent', 'fee', 'deposit', 'key', 'room_type','room_size', 'url'])
+    print(sl)
     sl.to_csv(f'{today}_tokyo_search_list.csv', encoding='utf-8')
     driver.close()
 
