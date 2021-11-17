@@ -229,13 +229,12 @@ def delete():
 @app.route('/test')
 def test():
     csv_name = get_csv_name('tokyo', 0)
-    print(csv_name)
     station = '新宿' #request.form['station']
     mins = 10 #request.form['mins']
     minp = 0 #request.form['minp']
     maxp = 100000 #request.form['maxp']
     ekis = search_eki(csv_name, station, mins, minp, maxp)
-    return render_template('test.html', ekis = ekis)
+    return render_template('test.html', ekis = ekis, n = csv_name)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
