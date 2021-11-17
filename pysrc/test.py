@@ -13,9 +13,6 @@ host = 'ec2-23-23-181-251.compute-1.amazonaws.com'
 port = '5432'
 db_name = 'pydb'
 
-db = declarative_base()
-db.query = session.query_property()
-
 uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'
 
 engine = create_engine(uri,echo=True)
@@ -26,6 +23,9 @@ session = scoped_session(
         bind = engine,
     )
 )
+db = declarative_base()
+db.query = session.query_property()
+
 class search_list(db):
     __tablename__ = "search_list"
     col1 = Column(Integer(), primary_key=True, index=True)
