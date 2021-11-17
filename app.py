@@ -51,6 +51,7 @@ def login_user(user):
         session['fb'] = True
     else:
         session['fb'] = False
+    return 'ログインに成功しました'
 
 # トップ画面へ
 @app.route('/')
@@ -70,8 +71,8 @@ def login():
             password = request.form['password']
             user = check_user(name,password)
             if user:
-                login_user(user)
-                return render_template('login_confirm.html', name = session['name'], id = session['id'])
+                message = login_user(user)
+                return render_template('login_confirm.html', name = session['name'], id = session['id'], m = message)
             else:
                 return render_template('login.html')
         except:
@@ -116,20 +117,20 @@ def fbin():
             else:
                 print('session[fbid] = Flase')
                 print(f'session[id] = {session["id"]}')
-                add_fbid(session['id'], fbid)
-                return redirect('/')
+                message = add_fbid(session['id'], fbid)
+                return render_template('login_confirm.html', name = session['name'], id = session['id'], m = message)
         else:               # ログアウト時
             print('session[flag] = False ')
             user = check_fb_user(fbid)
             if user:        # FBIDで検索、存在する
                 print('user = True')
-                login_user(user)
-                return render_template('login_confirm.html', name = session['name'], id = session['id'])
+                message = login_user(user)
+                return render_template('login_confirm.html', name = session['name'], id = session['id'], m = message)
             else:           # FBIDで検索、存在しない
                 print('user = False')
                 new_user = Users(name, fbid, 'fb')
-                add_user(new_user)
-                return render_template('login_confirm.html', name = session['name'], id = session['id'])
+                message = add_user(new_user)
+                return render_template('login_confirm.html', name = session['name'], id = session['id'], m = message)
     except Exception as e:
         print(f'except:{e}')
         return redirect('/')

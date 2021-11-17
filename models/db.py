@@ -87,23 +87,29 @@ class Rooms(db):
         return 'UserID:{0},\n{1}'.format(self.user_id, self.title)
 
 def add_user(user):
-    session.add(user)
-    session.commit()
+    if session.query(Users).filter(Users.fbid==user.fbid).first():
+        return 'このFBアカウントは既に登録されています'
+    else:
+        session.add(user)
+        session.commit()
+        return 'FBアカウントで登録しました'
 
 def check_user(name,password):
     user = session.query(Users).filter(Users.name==name).filter(Users.password==hashed(name,password,100)).first()
     return user
 
 def check_fb_user(fbid):
-    print(f'check fb user fbid:{fbid}')
     user = session.query(Users).filter(Users.fbid==fbid).first()
     return user
 
 def add_fbid(id, fbid):
-    print(f'add fbid id:{id} fbid:{fbid}')
-    user = session.query(Users).filter(Users.id==id).first()
-    user.fbid = fbid
-    session.commit()
+    if session.query(Users).filter(Users.fbid==fbid).first():
+        return 'このFBアカウントは既に登録されています'
+    else:
+        user = session.query(Users).filter(Users.id==id).first()
+        user.fbid = fbid
+        session.commit()
+        return 'FBアカウントを連携しました'
 
 def add_room(room):
     session.add(room)

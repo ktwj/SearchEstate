@@ -3,12 +3,8 @@
 <div class="content container">
     </div> 
     <div class="check">
-        <div
-            class="fb-like"
-            data-share="true"
-            data-width="450"
-            data-show-faces="true">
-        </div>
+        <!--<div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>-->
+        <!--password   : 'ca245b789e5249683df034cff10a31cb' -->
         {% if session['flag'] %}
             <p>ようこそ、{{ session['name'] }} さん。
                 （最終操作：
@@ -18,10 +14,6 @@
         {% else %}
             <p>ようこそ、ゲスト さん</p>
         {% endif %}
-        {{ session['fb'] }}
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-        </fb:login-button>
-        <!--password   : 'ca245b789e5249683df034cff10a31cb' -->
     </div>
     <div id="status">
     </div>
