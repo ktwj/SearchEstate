@@ -1,5 +1,5 @@
 from sqlalchemy import *
-from sqlalchemy import Column, Integer, VARCHAR, Float, DateTime, TEXT
+from sqlalchemy import and_, or_, Column, Integer, VARCHAR, Float, DateTime, TEXT
 from sqlalchemy.orm import *
 from sqlalchemy.sql import text
 from sqlalchemy.ext.declarative import declarative_base
@@ -51,6 +51,9 @@ class search_list(db):
     url = Column(VARCHAR(100))
 
 def searching(station, mins, minp, maxp):
-    t = text(f'station1.str.contains("{station}")&time1<={mins} or station2.str.contains("{station}")&time2<={mins} or station3.str.contains("{station}")&time3<={mins} & {minp}<=price<={maxp}')
+    t = text(and_(or_(and_(search_list.station1.like(f'%{station}%'), search_list.time1 <= mins),
+                      and_(search_list.station2.like(f'%{station}%'), search_list.time2 <= mins),
+                      and_(search_list.station3.like(f'%{station}%'), search_list.time3 <= mins)),
+                 minp<= search_list.price <=maxp))
     bukkens = session.query(search_list).filter(t).all()
     return bukkens
