@@ -10,7 +10,10 @@
             border:solid 1px;
             margin:0 0 15px 0;
         }
-        .links{
+        .status{
+            text-align:left;
+        }
+        .link_bar{
             text-align:right;
             margin-right:30px;
             display:inline;
@@ -106,25 +109,30 @@
 
         </div>
     </div>
+
     <div class="links">
-        <strong>
-            <a href="/">トップへ</a>
+        <div class="status">
+        </div>
+        <div class="link_bar">
+            <strong>
+                <a href="/">トップへ</a>
 
-        {% if not session['flag'] %}
-            <a href="/login">ログインへ</a>
-            <a href="/reg">登録へ</a>
-        {% endif %}
+            {% if not session['flag'] %}
+                <a href="/login">ログインへ</a>
+                <a href="/reg">登録へ</a>
+            {% endif %}
 
-        {% if session['flag'] %}
-            <a href="/logout">ログアウト</a>
-        {%endif%}
+            {% if session['flag'] %}
+                <a href="/logout">ログアウト</a>
+            {%endif%}
 
-            <a href="/search">検索</a>
+                <a href="/search">検索</a>
 
-        {% if session['flag'] %}
-            <a href="/lists/{{ session['id'] }}">登録中の物件メモ</a>
-        {% endif %}
-        </strong>
+            {% if session['flag'] %}
+                <a href="/lists/{{ session['id'] }}">登録中の物件メモ</a>
+            {% endif %}
+            </strong>
+        </div>
     </div>
 </header>
 <br>

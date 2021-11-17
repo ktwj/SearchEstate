@@ -121,15 +121,15 @@ def fbin():
         else:               # ログアウト時
             print('session[flag] = False ')
             user = check_fb_user(fbid)
-            if user:
+            if user:        # FBIDで検索、存在する
                 print('user = True')
                 login_user(user)
                 return render_template('login_confirm.html', name = session['name'], id = session['id'])
-            else:
+            else:           # FBIDで検索、存在しない
                 print('user = False')
                 new_user = Users(name, fbid, 'fb')
                 add_user(new_user)
-                return redirect('/')
+                return render_template('login_confirm.html', name = session['name'], id = session['id'])
     except Exception as e:
         print(f'except:{e}')
         return redirect('/')
