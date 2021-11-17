@@ -51,5 +51,6 @@ class search_list(db):
     url = Column(VARCHAR(100))
 
 def searching(station, mins, minp, maxp):
-    bukkens = session.query(search_list).filter(f'station1.str.contains("{station}")&time1<={mins} or station2.str.contains("{station}")&time2<={mins} or station3.str.contains("{station}")&time3<={mins} & {minp}<=price<={maxp}').all()
+    t = f'station1.str.contains("{station}")&time1<={mins} or station2.str.contains("{station}")&time2<={mins} or station3.str.contains("{station}")&time3<={mins} & {minp}<=price<={maxp}'
+    bukkens = session.query(search_list).filter(t).all()
     return bukkens
