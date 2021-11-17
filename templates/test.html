@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+
+{% for eki in ekis %}
+    <table>
+        {% for i in range(20)%}
+        <tr>
+            <td>{{eki[i]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endfor %}
+{% endblock %}

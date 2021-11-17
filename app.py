@@ -1,8 +1,10 @@
+from types import MappingProxyType
 from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
 from pysrc.search import ope
+from pysrc.search_test import get_csv_name, opera, search_eki
 from worker import conn
 from datetime import timedelta
 import datetime, re, os, logging
@@ -222,6 +224,18 @@ def delete():
         return redirect(f'/lists/{id}')
     else:
         return redirect('/')
+
+# テスト
+@app.route('/test')
+def test():
+    csv_name = get_csv_name('tokyo', 0)
+    station = request.form['station']
+    mins = request.form['mins']
+    minp = request.form['minp']
+    maxp = request.form['maxp']
+    opera()
+    ekis = search_eki(csv_name, station, mins, minp, maxp)
+    return render_template('test.html', ekis = ekis)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)

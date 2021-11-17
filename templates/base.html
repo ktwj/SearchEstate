@@ -10,10 +10,6 @@
             border:solid 1px;
             margin:0 0 15px 0;
         }
-        #status{
-            text-align:left;
-            display:inline;
-        }
         .link_bar{
             text-align:right;
             margin-right:30px;
@@ -53,7 +49,7 @@
             if (response.status === 'connected') {   // Logged into your webpage and Facebook.
                 testAPI();
             } else {                                 // Not logged into your webpage or we are unable to tell.
-                document.getElementById('status').innerHTML = 'Please log ' + 'into this webpage.';
+                //document.getElementById('status').innerHTML = 'Please log ' + 'into this webpage.';
             }
         }
 
@@ -70,7 +66,7 @@
             console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function(response) {
                 console.log('Successful login for: ' + response.name);
-                document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.status + '!';
+                //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.status + '!';
             });
         }
 
@@ -133,6 +129,7 @@
             {% if session['flag'] %}
                 <a href="/lists/{{ session['id'] }}">登録中の物件メモ</a>
             {% endif %}
+                <a href="/test">テスト</a>
             </strong>
         </div>
     </div>
