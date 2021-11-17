@@ -46,7 +46,7 @@ search_list = []
 logger = logging.getLogger()
 
 # driver 起動
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome('C:\chrome_driver\chromedriver', options=options)
 driver.implicitly_wait(10)
 
 tokyo = 'https://suumo.jp/jj/chintai/ichiran/FR301FC001/?ar=030&bs=040&ta=13&cb=0.0&ct=8.0&mb=0&mt=9999999&et=10&cn=15&co=1&kz=1&kz=2&kz=4&tc=0400301&tc=0400101&tc=0400501&shkr1=03&shkr2=03&shkr3=03&shkr4=03&fw2=%26%23039%3b&sngz=&po1=25&pc=50'

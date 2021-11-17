@@ -110,3 +110,6 @@ def search_eki(csv_name, station, min, minp,maxp):
     eki = csv_list.query(f'(station1.str.contains("{station}")&time1<={min} or station2.str.contains("{station}")&time2<={min} or station3.str.contains("{station}")&time3<={min}) & {minp}<=price<={maxp}', engine='python')
     return eki.values.tolist()
 
+opera()
+csv_name = get_csv_name('tokyo', 0)
+print(get_csv_name)
