@@ -3,9 +3,11 @@
 
 {% for eki in ekis %}
     <table>
+        {% for e in eki %}
         <tr>
-            <td>{{ eki[i] }}</td>
-        </tr> 
+            <td>{{ e }}</td>
+        </tr>
+        {% endfor %}
     </table>
 {% endfor %}
 {% endblock %}
