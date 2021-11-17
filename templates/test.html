@@ -2,12 +2,6 @@
 {% block body %}
 
 {% for eki in ekis %}
-    <table>
-        {% for e in eki %}
-        <tr>
-            <td>{{ e }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    {{ eki }}
 {% endfor %}
 {% endblock %}
