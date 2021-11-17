@@ -1,6 +1,7 @@
 from sqlalchemy import *
 from sqlalchemy import Column, Integer, VARCHAR, Float, DateTime, TEXT
 from sqlalchemy.orm import *
+from sqlalchemy.sql import text
 from sqlalchemy.ext.declarative import declarative_base
 import datetime, hashlib, psycopg2
 from flask import session as ss
