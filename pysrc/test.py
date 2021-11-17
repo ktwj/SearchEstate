@@ -52,6 +52,6 @@ class search_list(db):
 
 def searching(station, mins, minp, maxp):
     #t = text(f"and_(or_(and_(search_list.station1.like('%{station}%'), search_list.time1 <= {mins}), and_(search_list.station2.like('%{station}%'), search_list.time2 <= {mins}), and_(search_list.station3.like('%{station}%'), search_list.time3 <= {mins})), {minp} <= search_list.price, search_list.price <= {maxp})")
-    t = text(f"( (station1 like '%{station}%' and time1<={mins}) or (station2 like '%{station}%' and time2<={mins}) or (station3 like '%{station}%' and time3<={mins}) ) and {minp}<=price and price<={maxp}")
+    t = text(f"( (station1 like '{station}' and time1<={mins}) or (station2 like '{station}' and time2<={mins}) or (station3 like '{station}' and time3<={mins}) ) and {minp}<=price and price<={maxp}")
     bukkens = session.query(search_list).filter(t).all()
     return bukkens
