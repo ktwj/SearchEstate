@@ -229,6 +229,7 @@ def delete():
 @app.route('/test')
 def test():
     csv_name = get_csv_name('tokyo', 0)
+    print(csv_name)
     station = '新宿' #request.form['station']
     mins = 10 #request.form['mins']
     minp = 0 #request.form['minp']
