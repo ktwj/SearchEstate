@@ -37,10 +37,10 @@ class search_list(db):
     time1 = Column(Integer())
     line2 = Column(VARCHAR(100))
     station2 = Column(VARCHAR(100))
-    time2 = Column(Integer())
+    time2 = Column(Float())
     line3 = Column(VARCHAR(100))
     station3 = Column(VARCHAR(100))
-    time3 = Column(Integer())
+    time3 = Column(Float())
     price = Column(Float())
     rent = Column(Float())
     fee = Column(Float())
@@ -51,6 +51,5 @@ class search_list(db):
     url = Column(VARCHAR(100))
 
 def searching(station, mins, minp, maxp):
-    t = text(f'station1.str.contains("{station}")&time1<={mins} or station2.str.contains("{station}")&time2<={mins} or station3.str.contains("{station}")&time3<={mins} & {minp}<=price<={maxp}')
-    bukkens = session.query(search_list).filter(t).all()
+    bukkens = session.query(search_list).filter(f'station1.str.contains("{station}")&time1<={mins} or station2.str.contains("{station}")&time2<={mins} or station3.str.contains("{station}")&time3<={mins} & {minp}<=price<={maxp}').all()
     return bukkens
