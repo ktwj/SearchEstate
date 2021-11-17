@@ -229,10 +229,10 @@ def delete():
 @app.route('/test')
 def test():
     csv_name = get_csv_name('tokyo', 0)
-    station = request.form['station']
-    mins = request.form['mins']
-    minp = request.form['minp']
-    maxp = request.form['maxp']
+    station = '新宿' #request.form['station']
+    mins = 10 #request.form['mins']
+    minp = 0 #request.form['minp']
+    maxp = 100000#request.form['maxp']
     opera()
     ekis = search_eki(csv_name, station, mins, minp, maxp)
     return render_template('test.html', ekis = ekis)

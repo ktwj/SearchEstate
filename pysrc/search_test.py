@@ -53,16 +53,12 @@ def opera():
     options.add_argument(f'--user-agent={USER_AGENT}')
 
     search_list = []
-    logger = logging.getLogger()
 
     # driver 起動
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
 
     tokyo = 'https://suumo.jp/jj/chintai/ichiran/FR301FC001/?ar=030&bs=040&ta=13&cb=0.0&ct=8.0&mb=0&mt=9999999&et=10&cn=15&co=1&kz=1&kz=2&kz=4&tc=0400301&tc=0400101&tc=0400501&shkr1=03&shkr2=03&shkr3=03&shkr4=03&fw2=%26%23039%3b&sngz=&po1=25&pc=50'
-
-    driver = webdriver.Chrome(options=options)
-    driver.implicitly_wait(10)
 
     def get(lists, bukken_num):
         for list in lists:
@@ -110,6 +106,8 @@ def search_eki(csv_name, station, min, minp,maxp):
     eki = csv_list.query(f'(station1.str.contains("{station}")&time1<={min} or station2.str.contains("{station}")&time2<={min} or station3.str.contains("{station}")&time3<={min}) & {minp}<=price<={maxp}', engine='python')
     return eki.values.tolist()
 
+"""
 opera()
 csv_name = get_csv_name('tokyo', 0)
 print(get_csv_name)
+"""
