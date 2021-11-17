@@ -228,7 +228,6 @@ def delete():
 # テスト
 @app.route('/test')
 def test():
-    opera()
     csv_name = get_csv_name('tokyo', 0)
     station = '新宿' #request.form['station']
     mins = 10 #request.form['mins']

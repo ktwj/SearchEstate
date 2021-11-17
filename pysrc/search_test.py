@@ -34,14 +34,15 @@ def get_csv_name(location, n):
 
 def opera():
     options = webdriver.ChromeOptions()
+    """
     user_agents = [
         #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15',
         #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
         'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
         ]
-
     USER_AGENT = user_agents[random.randrange(0, len(user_agents), 1)]
+    """
     #options.add_argument('--headless')                 # headlessモードを使用する
     options.add_argument('--disable-gpu')              # headlessモードで暫定的に必要なフラグ(そのうち不要になる)
     options.add_argument('--disable-extensions')       # すべての拡張機能を無効にする。ユーザースクリプトも無効にする
@@ -50,7 +51,7 @@ def opera():
     options.add_argument('--start-maximized')          # 起動時にウィンドウを最大化する
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.use_chromium = True
-    options.add_argument(f'--user-agent={USER_AGENT}')
+    #options.add_argument(f'--user-agent={USER_AGENT}')
 
     search_list = []
 
