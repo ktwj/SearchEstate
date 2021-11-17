@@ -3,6 +3,7 @@ from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
+from pysrc.test import searching
 from pysrc.search import ope
 from pysrc.search_test import get_csv_name, opera, search_eki
 from worker import conn
@@ -228,13 +229,13 @@ def delete():
 # テスト
 @app.route('/test')
 def test():
-    csv_name = get_csv_name('tokyo', 0)
+    #csv_name = get_csv_name('tokyo', 0)
     station = '新宿' #request.form['station']
     mins = 10 #request.form['mins']
     minp = 0 #request.form['minp']
     maxp = 100000 #request.form['maxp']
-    ekis = search_eki(csv_name, station, mins, minp, maxp)
-    return render_template('test.html', ekis = ekis, n = csv_name)
+    ekis = searching(station, mins, minp, maxp)
+    return render_template('test.html', ekis = ekis)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
