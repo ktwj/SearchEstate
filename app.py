@@ -228,12 +228,12 @@ def delete():
 # テスト
 @app.route('/test')
 def test():
+    opera()
     csv_name = get_csv_name('tokyo', 0)
     station = '新宿' #request.form['station']
     mins = 10 #request.form['mins']
     minp = 0 #request.form['minp']
-    maxp = 100000#request.form['maxp']
-    opera()
+    maxp = 100000 #request.form['maxp']
     ekis = search_eki(csv_name, station, mins, minp, maxp)
     return render_template('test.html', ekis = ekis)
 
