@@ -2,6 +2,37 @@
 {% block body %}
 
 {% for eki in ekis %}
-    {{ eki['title'] }}
+    <table>
+        <tr>
+            <td></td>
+            <td>{{ eki['title'] }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ eki['address'] }}</td>
+        </tr>
+        <tr>
+            <td>最寄り駅</td>
+            <td>{{ eki['line1'] }} {{ eki['station1'] }} : {{ eki['time1'] }}</td>
+            {% if eki['line2'] %}
+            <td>{{ eki['line2'] }} {{ eki['station2'] }} : {{ eki['time2'] }}</td>
+            {% endif %}
+            {% if eki['line3'] %}
+            <td>{{ eki['line3'] }} {{ eki['station3'] }} : {{ eki['time3'] }}</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td>家賃 / 管理共益費</td>
+            <td>{{ eki['rent'] }}円 / {{ eki['fee'] }}</td>
+        </tr>
+        <tr>
+            <td>敷金 / 礼金</td>
+            <td>{{ eki['depost'] }}円 / {{ eki['key'] }}円</td>
+        </tr>
+        <tr>
+            <td>部屋</td>
+            <td><a href="{{eki['url']}}">詳細</a> : {{ eki['room_type'] }} {{ eki['room_size'] }}m^2</td>
+        </tr>
+    </table>
 {% endfor %}
 {% endblock %}
