@@ -235,6 +235,8 @@ def test():
         return render_template('search_db.html')
     elif request.method == 'POST':
         station = request.form['station']
+        if len(station)==0:
+            station = "駅名空白"
         mins = float(request.form['mins']) * 10000
         minp = float(request.form['minp']) * 10000
         maxp = float(request.form['maxp']) * 10000
