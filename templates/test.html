@@ -4,6 +4,7 @@
     検索に合致する物件がありません。
 {% else %}
     {% for eki in ekis %}
+    <div class="row">
     <div class=".col-6 .col-sm-5">
         <table>
             <tr>
@@ -39,6 +40,7 @@
                 <td>{{ eki['room_type'] }} {{ eki['room_size'] }}㎡</td>
             </tr>
         </table>
+    </div>
     </div>
     {% endfor %}
 {% endif %}
