@@ -227,16 +227,24 @@ def delete():
         return redirect('/')
 
 # テスト
-@app.route('/test')
+@app.route('/test', method=['get', 'post'])
 def test():
-    station = request.form['station']
-    mins = int(request.form['mins'])
-    minp = int(request.form['minp'])
-    maxp = int(request.form['maxp'])
-    shikirei = int(request.form['shikirei'])
-    room_size = float(request.form['room_size'])
-    ekis = searching(station, mins, minp, maxp, shikirei, room_size)
-    return render_template('test.html', ekis = ekis)
+    if session_time_check():return redirect('/')
+
+    if request.method == 'GET':
+        return render_template('search_db.html')
+    elif request.method == 'POST':
+        station = request.form['station']
+        mins = float(request.form['mins']) * 10000
+        minp = float(request.form['minp']) * 10000
+        maxp = float(request.form['maxp']) * 10000
+        shikirei = float(request.form['shikirei']) * 10000
+        room_size_min = float(request.form['room_size_min'])
+        room_size_max = float(request.form['room_size_max'])
+        ekis = searching(station, mins, minp, maxp, shikirei, room_size_min, room_size_max)
+        return render_template('test.html', ekis = ekis)
+    else:
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
