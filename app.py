@@ -229,12 +229,13 @@ def delete():
 # テスト
 @app.route('/test')
 def test():
-    #csv_name = get_csv_name('tokyo', 0)
-    station = "新宿" #request.form['station']
-    mins = 10 #request.form['mins']
-    minp = 0 #request.form['minp']
-    maxp = 100000 #request.form['maxp']
-    ekis = searching(station, mins, minp, maxp)
+    station = request.form['station']
+    mins = int(request.form['mins'])
+    minp = int(request.form['minp'])
+    maxp = int(request.form['maxp'])
+    shikirei = int(request.form['shikirei'])
+    room_size = float(request.form['room_size'])
+    ekis = searching(station, mins, minp, maxp, shikirei, room_size)
     return render_template('test.html', ekis = ekis)
 
 if __name__ == '__main__':
