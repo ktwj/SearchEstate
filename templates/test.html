@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 {% block body %}
+<style>
+    .table-wrapper{
+        margin:15px auto;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+    .table-wrapper table{
+        padding:5px;
+    }
+</style>
+
 {% if ekis|length == 0 %}
     検索に合致する物件がありません。
 {% else %}
+    <div class="table-wrapper">
     {% for eki in ekis %}
-    <div class="row">
-        <table class=".col-6 .col-sm-5">
+        <table>
             <tr>
                 <td>タイトル</td>
                 <td><a href="{{eki['url']}}" target="blank">{{ eki['title'] }}</a></td>
@@ -39,7 +50,7 @@
                 <td>{{ eki['room_type'] }} {{ eki['room_size'] }}㎡</td>
             </tr>
         </table>
-    </div>
     {% endfor %}
+    </div>
 {% endif %}
 {% endblock %}
