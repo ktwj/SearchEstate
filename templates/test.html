@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-{% if ekis|len == 0 %}
+{% if ekis|length == 0 %}
     検索に合致する物件がありません。
 {% else %}
     {% for eki in ekis %}
