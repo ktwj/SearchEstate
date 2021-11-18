@@ -5,8 +5,7 @@
 {% else %}
     {% for eki in ekis %}
     <div class="row">
-    <div class=".col-6 .col-sm-5">
-        <table>
+        <table class=".col-6 .col-sm-5">
             <tr>
                 <td>タイトル</td>
                 <td><a href="{{eki['url']}}" target="blank">{{ eki['title'] }}</a></td>
@@ -40,7 +39,6 @@
                 <td>{{ eki['room_type'] }} {{ eki['room_size'] }}㎡</td>
             </tr>
         </table>
-    </div>
     </div>
     {% endfor %}
 {% endif %}
