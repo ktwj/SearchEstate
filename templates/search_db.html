@@ -3,6 +3,7 @@
 <style>
     .search_form{
         padding:10px;
+        margin:10px
     }
 </style>
 
@@ -10,7 +11,7 @@
 <table class="search_form">
     <tr>
         <td>最寄り駅</td>
-        <td><input type="text" name="station" ></td>
+        <td><input type="text" name="station">駅</td>
     </tr>
     <tr>
         <td>徒歩</td>
@@ -154,9 +155,7 @@
              以内
         </td>
     </tr>
-    <tr>
-        <td><input type="submit" value="検索する"></td>
-    </tr>
 </table>
+<input type="submit" value="検索する">
 </form>
 {% endblock %}
