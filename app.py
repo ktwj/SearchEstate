@@ -227,7 +227,7 @@ def delete():
         return redirect('/')
 
 # テスト
-@app.route('/test', method=['get', 'post'])
+@app.route('/test', methods=['get', 'post'])
 def test():
     if session_time_check():return redirect('/')
 
