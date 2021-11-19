@@ -12,10 +12,9 @@
 </style>
 <script>
     function send_form(){
-        window.open('', 'new_window');
-        document.fav.action = '/fav_room';
+        window.open('about:blank', 'formpost', '"width=500,height=250,scrollbars=no,location=no,toolbar=no,menubar=no,status=no"');
         document.fav.method = 'POST';
-        document.fav.target = 'new_window';
+        document.fav.target = 'formpost';
         document.fav.submit();
     }
 </script>
@@ -26,7 +25,7 @@
     <div class="table-wrapper">
     {% for eki in ekis %}
         <table>
-            <form name="fav">
+            <form action="/fav_room" name="fav">
             <tr>
                 <td>タイトル</td>
                 <td>
