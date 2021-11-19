@@ -88,7 +88,7 @@ class fav_list(db):
         self.rent = float(rent)
         self.fee = float(fee)
         self.deposit = float(deposit)
-        self.key = int(key)
+        self.key = float(key)
         self.room_type = room_type
         self.room_size = float(room_size)
         self.url = url
