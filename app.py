@@ -275,7 +275,7 @@ def delete_fav():
     if session['flag']:
         ids = request.form.getlist('id')
         id = session['id']
-        del_fav(ids)
+        del_fav(ids,id)
 
         return redirect(f'/fav/{id}')
     else:
