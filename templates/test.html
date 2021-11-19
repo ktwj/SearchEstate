@@ -27,7 +27,7 @@
     <div class="table-wrapper">
     {% for eki in ekis %}
         <table>
-            <form name="fav">
+            <form name="fav" action="/fav_room" method="post">
             <tr>
                 <td>タイトル</td>
                 <td>
@@ -81,7 +81,7 @@
             </tr>
             <tr>
                 <td>
-                <input type="button" value="登録する" onClick="send_form()">
+                <input type="button" value="登録する">
                 </td>
             </tr>
             </form>
