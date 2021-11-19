@@ -85,7 +85,7 @@ class fav_list(db):
         self.line3 = line3
         self.statio3n = station3
         self.time3 = float(time3)
-        self.rent = int(rent)
+        self.rent = float(rent)
         self.fee = float(fee)
         self.deposit = float(deposit)
         self.key = int(key)
