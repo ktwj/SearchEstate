@@ -72,6 +72,7 @@ class fav_list(db):
     room_type = Column(VARCHAR(10))
     room_size = Column(Float())
     url = Column(VARCHAR(100))
+    deleted_at = Column(DateTime())
     def __init__(self,user_id,title,address,line1,station1,time1,line2,station2,time2,line3,station3,time3,rent,fee,deposit,key,room_type,room_size,url):
         self.user_id = user_id
         self.title = title
