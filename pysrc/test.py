@@ -52,6 +52,7 @@ class search_list(db):
 
 class fav_list(db):
     __tablename__ = "fav_list"
+    id = Column(Integer(), primary_key=True)
     user_id = Column(Integer())
     title = Column(VARCHAR(100))
     address = Column(VARCHAR(100))
