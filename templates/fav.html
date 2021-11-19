@@ -12,7 +12,7 @@
     検索に合致する物件がありません。
 {% else %}
     <div class="table-wrapper">
-        <form name="fav" action="/delete_fav" method="post">
+        <form name="fav" action="/delete_fav" method="post" onSubmit="return check()">
         <input type="submit" value="チェックした物件を削除する">
     {% for room in rooms %}
         <table>
