@@ -123,8 +123,6 @@ def del_room(ids):
 
 def list_of_rooms(user_id):
     rooms = session.query(Rooms).filter(Rooms.user_id==user_id).filter(or_(Rooms.deleted_at==None, Rooms.deleted_at=="2021-01-01 00:00:00")).all()
-    room = []
-
     return rooms
         
 Session = sessionmaker(bind=engine)

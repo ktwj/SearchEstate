@@ -273,8 +273,6 @@ def del_fav():
     if session_time_check():return redirect('/')
 
     if session['flag']:
-        print(request.form['id'])
-        print(request.form.getlist['id'])
         ids = request.form.getlist('id')
         id = session['id']
         del_fav(ids)

@@ -108,6 +108,9 @@ def list_of_fav(user_id):
     rooms = session.query(fav_list).filter(fav_list.user_id==user_id).filter(fav_list.deleted_at==None).all()
     return rooms
 
-def del_fav(id):
-    room = session(fav_list).filter(fav_list.id==id).first()
-    room.deleted_at = datetime.datetime.now()
+def del_fav(ids):
+    for id in ids:
+        room = session.query(fav_list).filter(fav_list.user_id==ss['id']).filter(fav_list.id==id).first()
+        room.deleted_at = datetime.datetime.now()
+    session.commit()
+

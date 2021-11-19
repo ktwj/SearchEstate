@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 {% block body %}
+
+<script>
+    function check(){
+        if(window.confirm('チェックした物件メモを削除してよろしいですか？')){ return true; }
+        else{ return false; }
+    }
+</script>
+
 {% if rooms|length == 0 %}
     検索に合致する物件がありません。
 {% else %}
     <div class="table-wrapper">
+        <input type="submit" value="チェックした物件を削除する">
     {% for room in rooms %}
         <table>
             <form name="fav" action="/delete_fav" method="post">
@@ -51,8 +60,7 @@
             </tr>
             <tr>
                 <td>
-                <input type="hidden" name="id" value="{{ room['id'] }}">
-                <input type="submit" value="削除する">
+                <input type="checkbox" name="id" value="{{room['id']}}">
                 </td>
             </tr>
             </form>
