@@ -13,7 +13,7 @@
 <script>
     function send_form(){
         window.open('', 'formpost', '"width=500,height=250,scrollbars=no,location=no,toolbar=no,menubar=no,status=no"');
-        document.fav.aciton = 'https://thawing-headland-31523.herokuapp.com/fav_room'
+        document.fav.aciton = '/fav_room';
         document.fav.method = 'POST';
         document.fav.target = 'formpost';
         document.fav.submit();
@@ -26,7 +26,7 @@
     <div class="table-wrapper">
     {% for eki in ekis %}
         <table>
-            <form action="/fav_room" name="fav">
+            <form name="fav">
             <tr>
                 <td>タイトル</td>
                 <td>
