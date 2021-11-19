@@ -248,11 +248,11 @@ def test():
     else:
         return redirect('/')
 
-@app.route('/fav_room', methods=['post'])
+@app.route('/fav_room', methods=['get'])
 def add():
     if session_time_check():return redirect('/')
 
-    f = fav_list(session['id'], request.form['title'], request.form['address'], request.form['line1'], request.form['station1'], request.form['time1'], request.form['line2'], request.form['station2'], request.form['time2'], request.form['line3'], request.form['station3'], request.form['time3'], request.form['rent'], request.form['fee'], request.form['deposit'], request.form['key'], request.form['room_type'], request.form['room_size'], request.form['url'])
+    f = fav_list(session['id'], request.args['title'], request.args['address'], request.args['line1'], request.args['station1'], request.args['time1'], request.args['line2'], request.args['station2'], request.args['time2'], request.args['line3'], request.args['station3'], request.args['time3'], request.args['rent'], request.args['fee'], request.args['deposit'], request.args['key'], request.args['room_type'], request.args['room_size'], request.args['url'])
     add_fav_room(f)
     return render_template('done.html')
 
