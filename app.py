@@ -269,7 +269,7 @@ def add():
 
 # 物件メモ削除テスト
 @app.route('/delete_fav', methods=['post'])
-def del_fav():
+def delete_fav():
     if session_time_check():return redirect('/')
 
     if session['flag']:
