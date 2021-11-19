@@ -10,6 +10,15 @@
         padding:5px;
     }
 </style>
+<script>
+    function send_form(url){
+        window.open('', 'new_window');
+        document.fav.action = '/fav_room';
+        document.fav.method = 'POST';
+        document.fav.target = 'new_window';
+        document.fav.submit();
+    }
+</script>
 
 {% if ekis|length == 0 %}
     検索に合致する物件がありません。
@@ -17,20 +26,20 @@
     <div class="table-wrapper">
     {% for eki in ekis %}
         <table>
-            <form action="/fav_room" action="POST" target="_blank">
+            <form name="fav">
             <tr>
                 <td>タイトル</td>
                 <td>
                     <a href="{{eki['url']}}" target="blank">{{ eki['title'] }}</a>
-                    <input type="hidden" value="{{ eki['title']}}">
-                    <input type="hidden" value="{{ eki['url']}}">
+                    <input type="hidden" name="title" value="{{ eki['title']}}">
+                    <input type="hidden" name="url" value="{{ eki['url']}}">
                 </td>
             </tr>
             <tr>
                 <td>住所</td>
                 <td>
                     {{ eki['address'] }}
-                    <input type="hidden" value="{{ eki['address']}}">
+                    <input type="hidden" name="address" value="{{ eki['address']}}">
                 </td>
             </tr>
             <tr>
@@ -43,36 +52,38 @@
                 {% if eki['line3'] %}<br>
                     {{ eki['line3'] }} {{ eki['station3'] }} : {{ eki['time3']|int }}分
                 {% endif %}
-                <input type="hidden" value="{{ eki['line1']}}"><input type="hidden" value="{{ eki['station1']}}"><input type="hidden" value="{{ eki['time1']}}">
-                <input type="hidden" value="{{ eki['line2']}}"><input type="hidden" value="{{ eki['station2']}}"><input type="hidden" value="{{ eki['time2']}}">                
-                <input type="hidden" value="{{ eki['line3']}}"><input type="hidden" value="{{ eki['station3']}}"><input type="hidden" value="{{ eki['time3']}}">
+                <input type="hidden" name="line1" value="{{ eki['line1']}}"><input type="hidden" name="station1" value="{{ eki['station1']}}"><input type="hidden" name="time1" value="{{ eki['time1']}}">
+                <input type="hidden" name="line2" value="{{ eki['line2']}}"><input type="hidden" name="station2" value="{{ eki['station2']}}"><input type="hidden" name="time2" value="{{ eki['time2']}}">                
+                <input type="hidden" name="line3" value="{{ eki['line3']}}"><input type="hidden" name="station3" value="{{ eki['station3']}}"><input type="hidden" name="time3" value="{{ eki['time3']}}">
                 </td>
             </tr>
             <tr>
                 <td>家賃 / 管理共益費</td>
                 <td>
                     {{ eki['rent']|int }}円 / {{ eki['fee']|int }}円
-                    <input type="hidden" value="{{ eki['rent'] }}"><input type="hidden" value="{{ eki['fee'] }}">
+                    <input type="hidden" name="rent" value="{{ eki['rent'] }}"><input type="hidden" name="fee" value="{{ eki['fee'] }}">
                 </td>
             </tr>
             <tr>
                 <td>敷金 / 礼金</td>
                 <td>
                     {{ eki['deposit']|int }}円 / {{ eki['key']|int }}円
-                    <input type="hidden" value="{{ eki['deposit'] }}"><input type="hidden" value="{{ eki['key'] }}">
+                    <input type="hidden" name="deposit" value="{{ eki['deposit'] }}"><input type="hidden" name="key" value="{{ eki['key'] }}">
                 </td>
             </tr>
             <tr>
                 <td>部屋</td>
                 <td>
                     {{ eki['room_type'] }} {{ eki['room_size'] }}㎡
-                    <input type="hidden" value="{{ eki['room_type']}}"><input type="hidden" value="{{ eki['room_size'] }}">
+                    <input type="hidden" name="room_type" value="{{ eki['room_type']}}"><input type="hidden" name="room_size" value="{{ eki['room_size'] }}">
                 </td>
             </tr>
             <tr>
-                <input type="submit" value="登録する">
-                </form>
+                <td>
+                <input type="button" value="登録する" onClick="send_form()">
+                </td>
             </tr>
+            </form>
         </table>
     {% endfor %}
     </div>
