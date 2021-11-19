@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block body %}
 {% if rooms|length == 0 %}
     検索に合致する物件がありません。
 {% else %}
@@ -58,3 +60,4 @@
     {% endfor %}
     </div>
 {% endif %}
+{% endblock %}
