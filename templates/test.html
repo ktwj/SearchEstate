@@ -17,13 +17,21 @@
     <div class="table-wrapper">
     {% for eki in ekis %}
         <table>
+            <form action="/fav_room" action="POST" target="_blank">
             <tr>
                 <td>タイトル</td>
-                <td><a href="{{eki['url']}}" target="blank">{{ eki['title'] }}</a></td>
+                <td>
+                    <a href="{{eki['url']}}" target="blank">{{ eki['title'] }}</a>
+                    <input type="hidden" value="{{ eki['title']}}">
+                    <input type="hidden" value="{{ eki['url']}}">
+                </td>
             </tr>
             <tr>
                 <td>住所</td>
-                <td>{{ eki['address'] }}</td>
+                <td>
+                    {{ eki['address'] }}
+                    <input type="hidden" value="{{ eki['address']}}">
+                </td>
             </tr>
             <tr>
                 <td>最寄り駅</td>
@@ -35,19 +43,35 @@
                 {% if eki['line3'] %}<br>
                     {{ eki['line3'] }} {{ eki['station3'] }} : {{ eki['time3']|int }}分
                 {% endif %}
+                <input type="hidden" value="{{ eki['line1']}}"><input type="hidden" value="{{ eki['station1']}}"><input type="hidden" value="{{ eki['time1']}}">
+                <input type="hidden" value="{{ eki['line2']}}"><input type="hidden" value="{{ eki['station2']}}"><input type="hidden" value="{{ eki['time2']}}">                
+                <input type="hidden" value="{{ eki['line3']}}"><input type="hidden" value="{{ eki['station3']}}"><input type="hidden" value="{{ eki['time3']}}">
                 </td>
             </tr>
             <tr>
                 <td>家賃 / 管理共益費</td>
-                <td>{{ eki['rent']|int }}円 / {{ eki['fee']|int }}円</td>
+                <td>
+                    {{ eki['rent']|int }}円 / {{ eki['fee']|int }}円
+                    <input type="hidden" value="{{ eki['rent'] }}"><input type="hidden" value="{{ eki['fee'] }}">
+                </td>
             </tr>
             <tr>
                 <td>敷金 / 礼金</td>
-                <td>{{ eki['deposit']|int }}円 / {{ eki['key']|int }}円</td>
+                <td>
+                    {{ eki['deposit']|int }}円 / {{ eki['key']|int }}円
+                    <input type="hidden" value="{{ eki['deposit'] }}"><input type="hidden" value="{{ eki['key'] }}">
+                </td>
             </tr>
             <tr>
                 <td>部屋</td>
-                <td>{{ eki['room_type'] }} {{ eki['room_size'] }}㎡</td>
+                <td>
+                    {{ eki['room_type'] }} {{ eki['room_size'] }}㎡
+                    <input type="hidden" value="{{ eki['room_type']}}"><input type="hidden" value="{{ eki['room_size'] }}">
+                </td>
+            </tr>
+            <tr>
+                <input type="submit" value="登録する">
+                </form>
             </tr>
         </table>
     {% endfor %}

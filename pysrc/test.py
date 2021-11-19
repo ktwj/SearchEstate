@@ -50,8 +50,54 @@ class search_list(db):
     room_size = Column(Float())
     url = Column(VARCHAR(100))
 
+class fav_list(db):
+    __tablename__ = "fav_list"
+    user_id = Column(Integer())
+    title = Column(VARCHAR(100))
+    address = Column(VARCHAR(100))
+    line1 = Column(VARCHAR(100))
+    station1 = Column(VARCHAR(100))
+    time1 = Column(Float())
+    line2 = Column(VARCHAR(100))
+    station2 = Column(VARCHAR(100))
+    time2 = Column(Float())
+    line3 = Column(VARCHAR(100))
+    station3 = Column(VARCHAR(100))
+    time3 = Column(Float())
+    rent = Column(Float())
+    fee = Column(Float())
+    deposit = Column(Float())
+    key = Column(Float())
+    room_type = Column(VARCHAR(10))
+    room_size = Column(Float())
+    url = Column(VARCHAR(100))
+    def __init__(self,user_id,title,address,line1,station1,time1,line2,station2,time2,line3,station3,time3,rent,fee,deposit,key,room_type,room_size,url):
+        self.user_id = user_id
+        self.title = title
+        self.address = address
+        self.line1 = line1
+        self.station1 = station1
+        self.time1 = int(time1)
+        self.line2 = line2
+        self.station2 = station2
+        self.time2 = float(time2)
+        self.line3 = line3
+        self.statio3n = station3
+        self.time3 = float(time3)
+        self.rent = int(rent)
+        self.fee = float(fee)
+        self.deposit = float(deposit)
+        self.key = int(key)
+        self.room_type = room_type
+        self.room_size = float(room_size)
+        self.url = url
+
 def searching(station, mins, minp, maxp, shikirei, room_size_min, room_size_max):
     #t = text(f"and_(or_(and_(search_list.station1.like('%{station}%'), search_list.time1 <= {mins}), and_(search_list.station2.like('%{station}%'), search_list.time2 <= {mins}), and_(search_list.station3.like('%{station}%'), search_list.time3 <= {mins})), {minp} <= search_list.price, search_list.price <= {maxp})")
     t = text(f"( (station1 like '%{station}%' and time1<={mins}) or (station2 like '%{station}%' and time2<={mins}) or (station3 like '%{station}%' and time3<={mins}) ) and {minp}<=price and price<={maxp} and deposit+key <= {shikirei} and room_size >= {room_size_min} and room_size <= {room_size_max}")
     bukkens = session.query(search_list).filter(t).all()
     return bukkens
+
+def add_fav_room(room):
+    session.add(room)
+    session.commit()

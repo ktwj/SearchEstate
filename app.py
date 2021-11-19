@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
-from pysrc.test import searching
+from pysrc.test import searching, fav_list, add_fav_room
 from pysrc.search import ope
 from pysrc.search_test import get_csv_name, opera, search_eki
 from worker import conn
@@ -247,6 +247,14 @@ def test():
         return render_template('test.html', ekis = ekis)
     else:
         return redirect('/')
+
+@app.route('/fav_room', methods=['post'])
+def add():
+    if session_time_check():return redirect('/')
+
+    f = fav_list(session['id'], request.form['title'], request.form['address'], request.form['line1'], request.form['station1'], request.form['time1'], request.form['line2'], request.form['station2'], request.form['time2'], request.form['line3'], request.form['station3'], request.form['time3'], request.form['rent'], request.form['fee'], request.form['deposit'], request.form['key'], request.form['room_type'], request.form['room_size'], request.form['url'])
+    add_fav_room(f)
+    return render_template('done.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
