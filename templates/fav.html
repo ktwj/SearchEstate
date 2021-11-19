@@ -1,0 +1,60 @@
+{% if rooms|length == 0 %}
+    検索に合致する物件がありません。
+{% else %}
+    <div class="table-wrapper">
+    {% for room in rooms %}
+        <table>
+            <form name="fav" action="/del_fav" method="post">
+            <tr>
+                <td>タイトル</td>
+                <td>
+                    <a href="{{room['url']}}" target="blank">{{ room['title'] }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>住所</td>
+                <td>
+                    {{ room['address'] }}
+                </td>
+            </tr>
+            <tr>
+                <td>最寄り駅</td>
+                <td>
+                    {{ room['line1'] }} {{ room['station1'] }} : {{ room['time1']|int }}分
+                {% if room['line2'] %}<br>
+                    {{ room['line2'] }} {{ room['station2'] }} : {{ room['time2']|int }}分
+                {% endif %}
+                {% if room['line3'] %}<br>
+                    {{ room['line3'] }} {{ room['station3'] }} : {{ room['time3']|int }}分
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>家賃 / 管理共益費</td>
+                <td>
+                    {{ room['rent']|int }}円 / {{ room['fee']|int }}円
+                </td>
+            </tr>
+            <tr>
+                <td>敷金 / 礼金</td>
+                <td>
+                    {{ room['deposit']|int }}円 / {{ room['key']|int }}円
+                </td>
+            </tr>
+            <tr>
+                <td>部屋</td>
+                <td>
+                    {{ room['room_type'] }} {{ room['room_size'] }}㎡
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <input type="hidden" name="id" value="{{ room['id'] }}">
+                <input type="submit" value="削除する">
+                </td>
+            </tr>
+            </form>
+        </table>
+    {% endfor %}
+    </div>
+{% endif %}

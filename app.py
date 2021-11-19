@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from rq import Queue
 from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
-from pysrc.test import searching, fav_list, add_fav_room
+from pysrc.test import searching, fav_list, add_fav_room, list_of_fav, del_fav
 from pysrc.search import ope
 from pysrc.search_test import get_csv_name, opera, search_eki
 from worker import conn
@@ -155,6 +155,14 @@ def lists(user_id):
 
     return render_template('lists.html', rooms=rooms)
 
+# 登録メモ一覧テスト
+@app.route('/fav/<user_id>')
+def favlist(user_id):
+    if session_time_check():return redirect('/')
+
+    rooms = list_of_fav(user_id)
+    return render_template('fav.html', rooms=rooms)
+
 # 物件検索
 @app.route('/search', methods=['GET','POST'])
 def search():
@@ -250,6 +258,7 @@ def test():
     else:
         return redirect('/')
 
+# 登録テスト
 @app.route('/fav_room', methods=['post'])
 def add():
     if session_time_check():return redirect('/')
@@ -257,6 +266,20 @@ def add():
     f = fav_list(session['id'], request.form['title'], request.form['address'], request.form['line1'], request.form['station1'], request.form['time1'], request.form['line2'], request.form['station2'], request.form['time2'], request.form['line3'], request.form['station3'], request.form['time3'], request.form['rent'], request.form['fee'], request.form['deposit'], request.form['key'], request.form['room_type'], request.form['room_size'], request.form['url'])
     add_fav_room(f)
     return render_template('done.html')
+
+# 物件メモ削除テスト
+@app.route('/delete_fav', methods=['post'])
+def del_fav():
+    if session_time_check():return redirect('/')
+
+    if session['flag']:
+        ids = request.form.getlist('id')
+        id = session['id']
+        del_fav(ids)
+
+        return redirect(f'/fav/{id}')
+    else:
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)

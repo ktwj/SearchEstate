@@ -102,3 +102,11 @@ def searching(station, mins, minp, maxp, shikirei, room_size_min, room_size_max)
 def add_fav_room(room):
     session.add(room)
     session.commit()
+
+def list_of_fav(user_id):
+    rooms = session.query(fav_list).filter(fav_list.user_id==user_id).filter(fav_list.deleted_at==None).all()
+    return rooms
+
+def del_fav(id):
+    room = session(fav_list).filter(fav_list.id==id).first()
+    room.deleted_at = datetime.datetime.now()
