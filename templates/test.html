@@ -12,10 +12,10 @@
 </style>
 <script>
     function send_form(){
-        window.open('', 'formpost', 'width=500,height=250,scrollbars=no,location=no,toolbar=no,menubar=no,status=no');
+        window.open('/fav_room', '/fav_room', 'width=500,height=250,scrollbars=no,location=no,toolbar=no,menubar=no,status=no');
         document.fav.aciton = '/fav_room';
         document.fav.method = 'POST';
-        document.fav.target = 'formpost';
+        document.fav.target = '/fav_room';
         document.fav.submit();
     }
 </script>
