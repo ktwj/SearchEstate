@@ -12,11 +12,12 @@
 </style>
 <script>
     function send_form(){
-        window.open('/fav_room', '/fav_room', 'width=500,height=250,scrollbars=no,location=no,toolbar=no,menubar=no,status=no');
-        document.fav.aciton = '/fav_room';
-        document.fav.method = 'POST';
-        document.fav.target = '/fav_room';
-        document.fav.submit();
+        var win = window.open('', '/fav_room', 'width=500,height=250,scrollbars=no,location=no,toolbar=no,menubar=no,status=no');
+        var f = win.document.fav
+        f.aciton = '/fav_room';
+        f.target = '/fav_room';
+        f.method = 'post';
+        f.submit();
     }
 </script>
 
