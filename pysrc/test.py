@@ -11,11 +11,10 @@ user = 'fcjytqjkmrdcth'
 password = 'd0d4acde298c07fedd9acf037ec024ffd15a8ee6ea2ea07876d8ab7dc840b256'
 host = 'ec2-23-23-181-251.compute-1.amazonaws.com'
 port = '5432'
-db_name = 'pydb'
 
 uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'
 
-engine = create_engine(uri,echo=True)
+engine = create_engine(uri,echo=True,encoding='utf-8')
 session = scoped_session(
     sessionmaker(
         autoflush = False,
@@ -28,7 +27,7 @@ db.query = session.query_property()
 
 class search_list(db):
     __tablename__ = "search_list"
-    col1 = Column(Integer(), primary_key=True, index=True)
+    index = Column(Integer(), primary_key=True, index=True)
     bukken_num = Column(Integer())
     title = Column(VARCHAR(100))
     address = Column(VARCHAR(100))
@@ -98,19 +97,28 @@ def searching(station, mins, minp, maxp, shikirei, room_size_min, room_size_max)
     #t = text(f"and_(or_(and_(search_list.station1.like('%{station}%'), search_list.time1 <= {mins}), and_(search_list.station2.like('%{station}%'), search_list.time2 <= {mins}), and_(search_list.station3.like('%{station}%'), search_list.time3 <= {mins})), {minp} <= search_list.price, search_list.price <= {maxp})")
     t = text(f"( (station1 like '%{station}%' and time1<={mins}) or (station2 like '%{station}%' and time2<={mins}) or (station3 like '%{station}%' and time3<={mins}) ) and {minp}<=price and price<={maxp} and deposit+key <= {shikirei} and room_size >= {room_size_min} and room_size <= {room_size_max}")
     bukkens = session.query(search_list).filter(t).all()
+    session.close()
     return bukkens
 
 def add_fav_room(room):
     session.add(room)
     session.commit()
+    session.close()
 
 def list_of_fav(user_id):
     rooms = session.query(fav_list).filter(fav_list.user_id==user_id).filter(fav_list.deleted_at==None).all()
+    session.close()
     return rooms
+
+def del_all_list():
+    session.query(search_list).delete()
+    session.commit()
+    session.close()
 
 def del_fav(ids,ss_id):
     for id in ids:
         room = session.query(fav_list).filter(fav_list.user_id==ss_id).filter(fav_list.id==id).first()
         room.deleted_at = datetime.datetime.now()
     session.commit()
+    session.close()
 

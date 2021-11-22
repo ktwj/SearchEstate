@@ -29,8 +29,8 @@ def exe():
     db = declarative_base()
     db.query = session.query_property()
 
-    class search_list2(db):
-        __tablename__ = "search_list2"
+    class search_list(db):
+        __tablename__ = "search_list"
         index = Column(Integer(), primary_key=True, index=True)
         bukken_num = Column(Integer())
         title = Column(VARCHAR(100))
@@ -53,8 +53,7 @@ def exe():
         room_size = Column(Float())
         url = Column(VARCHAR(100))
 
-    session.query(search_list2).delete()
-    session.commit()
+
 
     sl = getter()
-    sl.to_sql('search_list2', con=engine, if_exists='append')
+    sl.to_sql('search_list', con=engine, if_exists='append')
