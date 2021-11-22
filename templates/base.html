@@ -123,19 +123,14 @@
 
             {% if session['flag'] %}
                 <a href="/logout">ログアウト</a>
-            {%endif%}
+            {% endif %}
 
                 <a href="/search">検索</a>
 
             {% if session['flag'] %}
-                <a href="/lists/{{ session['id'] }}">登録中の物件メモ</a>
-            {% endif %}
-                <a href="/test">テスト</a>
-            {% if session['flag'] %}
                 <a href="/fav/{{ session['id'] }}">一覧テスト</a>
             {% endif %}
             </strong>
-            <a href="/alldelete">オールデリート</a>
         </div>
     </div>
 </header>

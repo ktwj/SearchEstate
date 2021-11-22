@@ -165,7 +165,7 @@ def favlist(user_id):
     return render_template('fav.html', rooms=rooms)
 
 # 物件検索
-@app.route('/search', methods=['GET','POST'])
+@app.route('/search_test', methods=['GET','POST'])
 def search():
     if session_time_check():return redirect('/')
 
@@ -238,7 +238,7 @@ def delete():
         return redirect('/')
 
 # テスト
-@app.route('/test', methods=['get', 'post'])
+@app.route('/search', methods=['get', 'post'])
 def test():
     if session_time_check():return redirect('/')
 
