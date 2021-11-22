@@ -57,4 +57,4 @@ def exe():
     session.commit()
 
     sl = getter()
-    sl.to_sql('search_list2', con=engine, if_exists='append', index=False)
+    sl.to_sql('search_list2', con=engine, if_exists='append')
