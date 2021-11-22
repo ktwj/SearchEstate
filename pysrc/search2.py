@@ -36,9 +36,11 @@ def getter():
     options.add_argument('--headless')                 # headlessモードを使用する
     options.add_argument('--disable-gpu')              # headlessモードで暫定的に必要なフラグ(そのうち不要になる)
     options.add_argument('--disable-extensions')       # すべての拡張機能を無効にする。ユーザースクリプトも無効にする
+    options.add_argument('--no-sandbox')               # サンドボックス使用しない
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--proxy-server="socks5://127.0.0.1:port"') # Proxy経由ではなく直接接続する
+    options.add_argument('--remote-debugging-port=9222')
     options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
-    options.add_argument('--start-maximized')          # 起動時にウィンドウを最大化する
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.use_chromium = True
     options.add_argument(f'--user-agent={USER_AGENT}')
