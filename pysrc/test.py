@@ -10,9 +10,9 @@ database = 'dgp2oe0v7u7ba'
 user = 'fcjytqjkmrdcth'
 password = 'd0d4acde298c07fedd9acf037ec024ffd15a8ee6ea2ea07876d8ab7dc840b256'
 host = 'ec2-23-23-181-251.compute-1.amazonaws.com'
-port = '5432'
+port = '5432'   
 
-uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'
+uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}?client_encoding=utf8'
 
 engine = create_engine(uri,echo=True,encoding='utf-8')
 session = scoped_session(
