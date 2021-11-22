@@ -96,7 +96,7 @@ def getter():
                 html = driver.page_source.encode('utf-8')
                 soup = BeautifulSoup(html, 'html.parser')
                 lists = soup.find_all('ul', class_='l-cassetteitem')
-                sleep(15)
+                sleep(10)
                 get(lists,num,last)
 
         driver.get(tokyo)
