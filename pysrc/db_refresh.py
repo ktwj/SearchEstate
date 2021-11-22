@@ -56,3 +56,4 @@ def exe():
     session.query(search_list2).delete()
     sl = getter()
     sl.to_sql('search_list2', con=engine, if_exists='append')
+exe()

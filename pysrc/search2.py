@@ -33,7 +33,7 @@ def getter():
         ]
 
     USER_AGENT = user_agents[random.randrange(0, len(user_agents), 1)]
-    #options.add_argument('--headless')                 # headlessモードを使用する
+    options.add_argument('--headless')                 # headlessモードを使用する
     options.add_argument('--disable-gpu')              # headlessモードで暫定的に必要なフラグ(そのうち不要になる)
     options.add_argument('--disable-extensions')       # すべての拡張機能を無効にする。ユーザースクリプトも無効にする
     options.add_argument('--proxy-server="socks5://127.0.0.1:port"') # Proxy経由ではなく直接接続する
@@ -107,7 +107,7 @@ def getter():
     else:
         last = int(pg[-1].text)
     num = 1
-    last = 1
+    last = 5
     get(lists, num, last)
 
     sl = pd.DataFrame(search_list, columns=['bukken_num', 'title', 'address', 'line1','station1','time1','line2','station2','time2','line3','station3','time3','price', 'rent', 'fee', 'deposit', 'key', 'room_type','room_size', 'url'])
