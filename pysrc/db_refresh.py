@@ -54,5 +54,6 @@ def exe():
         url = Column(VARCHAR(100))
 
     session.query(search_list2).delete()
+    session.commit()
     sl = getter()
     sl.to_sql('search_list2', con=engine, if_exists='append', index=False)
