@@ -30,7 +30,7 @@ def exe():
     db.query = session.query_property()
 
     class search_list2(db):
-        __tablename__ = "search_list"
+        __tablename__ = "search_list2"
         index = Column(Integer(), primary_key=True, index=True)
         bukken_num = Column(Integer())
         title = Column(VARCHAR(100))
@@ -55,5 +55,6 @@ def exe():
 
     session.query(search_list2).delete()
     session.commit()
+
     sl = getter()
     sl.to_sql('search_list2', con=engine, if_exists='append', index=False)
