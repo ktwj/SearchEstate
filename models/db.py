@@ -32,20 +32,6 @@ def hashed(name,p,n):
 db = declarative_base()
 db.query = session.query_property()
 
-class Posts(db):
-    __tablename__ = "posts"
-    id = Column(Integer, primary_key=True)
-    title = Column(TEXT)
-    data = Column(TEXT)
-    img = Column(TEXT)
-    created_at = Column(DateTime())
-    def __init__(self, title, data, img):
-        self.title = title
-        self.data = data
-        self.img = img
-    def __rept__(self):
-        return 'Posts {} / {} / {}'.format(self.title,self.data,self.img)
-
 class Users(db):
     __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)
@@ -124,7 +110,9 @@ def del_room(ids):
 def list_of_rooms(user_id):
     rooms = session.query(Rooms).filter(Rooms.user_id==user_id).filter(or_(Rooms.deleted_at==None, Rooms.deleted_at=="2021-01-01 00:00:00")).all()
     return rooms
-        
+
+"""
 Session = sessionmaker(bind=engine)
 db_session = Session()
 db.metadata.create_all(engine)
+"""
