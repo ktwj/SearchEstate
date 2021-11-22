@@ -6,6 +6,7 @@ from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room,
 from pysrc.test import searching, fav_list, add_fav_room, list_of_fav, del_fav
 from pysrc.search import ope
 from pysrc.search_test import get_csv_name, opera, search_eki
+from pysrc.db_refresh import exe
 from worker import conn
 from datetime import timedelta
 import datetime, re, os, logging
@@ -280,6 +281,11 @@ def delete_fav():
         return redirect(f'/fav/{id}')
     else:
         return redirect('/')
+
+@app.route('/alldelete')
+def alldel():
+    exe()
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
