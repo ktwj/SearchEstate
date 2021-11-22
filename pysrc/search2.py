@@ -24,30 +24,30 @@ def check_mann(p):
     else: return 0
 
 def getter():
+    options = webdriver.ChromeOptions()
+    user_agents = [
+        #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15',
+        #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
+        'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
+        ]
+
+    USER_AGENT = user_agents[random.randrange(0, len(user_agents), 1)]
+    options.add_argument('--headless')                 # headlessモードを使用する
+    options.add_argument('--disable-gpu')              # headlessモードで暫定的に必要なフラグ(そのうち不要になる)
+    options.add_argument('--disable-extensions')       # すべての拡張機能を無効にする。ユーザースクリプトも無効にする
+    options.add_argument('--proxy-server="socks5://127.0.0.1:port"') # Proxy経由ではなく直接接続する
+    options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
+    options.add_argument('--start-maximized')          # 起動時にウィンドウを最大化する
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    options.use_chromium = True
+    options.add_argument(f'--user-agent={USER_AGENT}')
+
+    search_list = []
+
+    # driver 起動
+    driver = webdriver.Chrome(options=options)
     try:
-        options = webdriver.ChromeOptions()
-        user_agents = [
-            #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15',
-            #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
-            'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
-            ]
-
-        USER_AGENT = user_agents[random.randrange(0, len(user_agents), 1)]
-        options.add_argument('--headless')                 # headlessモードを使用する
-        options.add_argument('--disable-gpu')              # headlessモードで暫定的に必要なフラグ(そのうち不要になる)
-        options.add_argument('--disable-extensions')       # すべての拡張機能を無効にする。ユーザースクリプトも無効にする
-        options.add_argument('--proxy-server="socks5://127.0.0.1:port"') # Proxy経由ではなく直接接続する
-        options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
-        options.add_argument('--start-maximized')          # 起動時にウィンドウを最大化する
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        options.use_chromium = True
-        options.add_argument(f'--user-agent={USER_AGENT}')
-
-        search_list = []
-
-        # driver 起動
-        driver = webdriver.Chrome(options=options)
         driver.implicitly_wait(10)
 
         tokyo = 'https://suumo.jp/jj/chintai/ichiran/FR301FC001/?ar=030&bs=040&ta=13&cb=0.0&ct=8.0&mb=0&mt=9999999&et=10&cn=15&co=1&kz=1&kz=2&kz=4&tc=0400301&tc=0400101&tc=0400501&shkr1=03&shkr2=03&shkr3=03&shkr4=03&fw2=%26%23039%3b&sngz=&po1=25&pc=50'
