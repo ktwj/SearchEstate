@@ -31,7 +31,7 @@ def exe():
 
     class search_list2(db):
         __tablename__ = "search_list"
-        col1 = Column(Integer(), primary_key=True, index=True)
+        index = Column(Integer(), primary_key=True, index=True)
         bukken_num = Column(Integer())
         title = Column(VARCHAR(100))
         address = Column(VARCHAR(100))
