@@ -161,7 +161,8 @@ def lists(user_id):
 def favlist(user_id):
     if session_time_check():return redirect('/')
 
-    rooms = list_of_fav(user_id).reverse()
+    rooms = list_of_fav(user_id)
+    rooms.reverse()
     return render_template('fav.html', rooms=rooms)
 
 """
