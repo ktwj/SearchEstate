@@ -164,6 +164,7 @@ def favlist(user_id):
     rooms = list_of_fav(user_id)
     return render_template('fav.html', rooms=rooms)
 
+"""
 # 物件検索
 @app.route('/search_test', methods=['GET','POST'])
 def search():
@@ -185,6 +186,7 @@ def search():
         return render_template('result.html', results = results,station=station,min=min,times=times,rent=rent,walktime=walktime,l=len(results))
     else:
         redirect('/')
+"""
 
 # 物件メモ登録確認画面
 @app.route('/update', methods=['post'])
