@@ -7,7 +7,7 @@ from pysrc.test import searching, fav_list, add_fav_room, list_of_fav, del_fav
 from pysrc.search import ope
 from pysrc.search_test import get_csv_name, opera, search_eki
 from pysrc.db_refresh import exe
-from worker import conn
+# from worker import conn
 from datetime import timedelta
 import datetime, re, os, logging
 import traceback
