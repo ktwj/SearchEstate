@@ -73,16 +73,20 @@ class Rooms(db):
         return 'UserID:{0},\n{1}'.format(self.user_id, self.title)
 
 def add_user(user):
-    if user.types == 'normal':
-        session.add(user)
-        return '登録しました'
+    if (user.name==null) or (user.password==null):
+        return '名前・パスワードが入力されていません'
     else:
-        if session.query(Users).filter(Users.fbid==user.fbid).first():
-            return 'このFBアカウントは既に登録されています'
-        else:
+        if user.fbid == null:
             session.add(user)
             session.commit()
-            return 'FBアカウントで登録しました'
+            return '登録しました'
+        else:
+            if session.query(Users).filter(Users.fbid==user.fbid).first():
+                return 'このFBアカウントは既に登録されています'
+            else:
+                session.add(user)
+                session.commit()
+                return 'FBアカウントで登録しました'
 
 def check_user(name,password):
     user = session.query(Users).filter(Users.name==name).filter(Users.password==hashed(name,password,100)).first()
