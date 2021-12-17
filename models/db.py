@@ -40,7 +40,9 @@ class Users(db):
     deleted_at = Column(DateTime())
     fbid = Column(TEXT())
     def __init__(self, name, words, types):
+        print('0')
         self.name = name
+        print('1')
         if types == 'fb':
             self.fbid = words
         elif types == 'normal':
@@ -74,9 +76,11 @@ class Rooms(db):
 
 def add_user(user):
     if (user.name==null) or (user.password==null):
+        print('3')
         return '名前・パスワードが入力されていません'
     else:
         if user.fbid == null:
+            print('4')
             session.add(user)
             session.commit()
             return '登録しました'
