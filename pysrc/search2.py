@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 import logging, random, re, datetime
 from bs4 import BeautifulSoup
@@ -28,7 +29,7 @@ def getter():
     user_agents = [
         #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15',
         #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15',
-        #'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
         'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
         ]
 
@@ -48,7 +49,8 @@ def getter():
     search_list = []
 
     # driver 起動
-    driver = webdriver.Chrome(options=options)
+    # driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     try:
         driver.implicitly_wait(10)
 
@@ -110,7 +112,6 @@ def getter():
         else:
             last = int(pg[-1].text)
         num = 1
-        last = 2
         get(lists, num, last)
         driver.close()
         sl = pd.DataFrame(search_list, columns=['bukken_num', 'title', 'address', 'line1','station1','time1','line2','station2','time2','line3','station3','time3','price', 'rent', 'fee', 'deposit', 'key', 'room_type','room_size', 'url'], )
@@ -119,3 +120,6 @@ def getter():
     except Exception as e:
         print(e)
         return None
+
+#sl = getter()
+#sl.to_csv('search_list_tokyo.csv')

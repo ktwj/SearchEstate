@@ -1,0 +1,5 @@
+.env
+pysrc/search_test.py
+pysrc/__init__.py
+pysrc/celery_maker.py
+search_list_tokyo.csv

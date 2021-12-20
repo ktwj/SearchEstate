@@ -3,14 +3,15 @@ from sqlalchemy import and_, or_, Column, Integer, VARCHAR, Float, DateTime, TEX
 from sqlalchemy.orm import *
 from sqlalchemy.sql import text
 from sqlalchemy.ext.declarative import declarative_base
-import datetime, hashlib, psycopg2
+import datetime
 from flask import session as ss
+from pysrc import env
 
-database = 'dgp2oe0v7u7ba'
-user = 'fcjytqjkmrdcth'
-password = 'd0d4acde298c07fedd9acf037ec024ffd15a8ee6ea2ea07876d8ab7dc840b256'
-host = 'ec2-23-23-181-251.compute-1.amazonaws.com'
-port = '5432'   
+database = env.APP_database
+user = env.APP_user
+password = env.APP_password
+host = env.APP_host
+port = env.APP_port
 
 uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}?client_encoding=utf8'
 

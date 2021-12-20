@@ -4,13 +4,13 @@ from sqlalchemy.orm import *
 from sqlalchemy.ext.declarative import declarative_base
 import datetime, hashlib, psycopg2
 from flask import session as ss
+from pysrc import env
 
-database = 'dgp2oe0v7u7ba'
-user = 'fcjytqjkmrdcth'
-password = 'd0d4acde298c07fedd9acf037ec024ffd15a8ee6ea2ea07876d8ab7dc840b256'
-host = 'ec2-23-23-181-251.compute-1.amazonaws.com'
-port = '5432'
-db_name = 'pydb'
+database = env.APP_database
+user = env.APP_user
+password = env.APP_password
+host = env.APP_host
+port = env.APP_port
 
 uri = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'
 
@@ -118,6 +118,11 @@ def del_room(ids):
         room = session.query(Rooms).filter(Rooms.user_id==ss['id']).filter(Rooms.id==id).first()
         room.deleted_at = datetime.datetime.now()
     session.commit()
+
+def del_all_list():
+    session.query(search_list).delete()
+    session.commit()
+    session.close()
 
 def list_of_rooms(user_id):
     rooms = session.query(Rooms).filter(Rooms.user_id==user_id).filter(or_(Rooms.deleted_at==None, Rooms.deleted_at=="2021-01-01 00:00:00")).all()

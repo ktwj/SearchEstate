@@ -1,15 +1,12 @@
 from types import MappingProxyType
 from flask import Flask, request, render_template, redirect, session
 from flask_sqlalchemy import SQLAlchemy
-from rq import Queue
 from models.db import Users, Rooms, add_fbid, uri, add_user, add_room, del_room, check_user, check_fb_user, list_of_rooms, add_fbid
 from pysrc.test import searching, fav_list, add_fav_room, list_of_fav, del_fav
-from pysrc.search import ope
-from pysrc.search_test import get_csv_name, opera, search_eki
 from pysrc.db_refresh import exe
-# from worker import conn
 from datetime import timedelta
-import datetime, re, os, logging
+from pysrc import env
+import datetime, re, os
 import traceback
 
 app = Flask(__name__)
@@ -18,7 +15,7 @@ app = Flask(__name__)
 app.jinja_env.filters['zip'] = zip
 
 # セッションスコープ 暗号化とセッションの自動破棄時間
-app.secret_key = 'abcdefghijklmn'
+app.secret_key = env.APP_secret_key
 app.permanent_session_lifetime = timedelta(minutes=60)
 # sessionリスト id, name, flag, last_action
 
@@ -165,30 +162,6 @@ def favlist(user_id):
     rooms.reverse()
     return render_template('fav.html', rooms=rooms)
 
-"""
-# 物件検索
-@app.route('/search_test', methods=['GET','POST'])
-def search():
-    if session_time_check():return redirect('/')
-
-    if request.method == 'GET':
-        return render_template('search.html')
-    elif request.method == 'POST':
-        station = request.form['station']
-        min = request.form['min']
-        times = request.form['times']
-        rent = request.form['rent']
-        walktime = request.form['walktime']
-        # Flaskは同名formは最初のvalueを送るので、配列化し最後の一つを取り出す。
-        sites = [request.form.getlist('suumo')[-1], request.form.getlist('athome')[-1], request.form.getlist('homes')[-1]]
-        sites = [True if i == 'True' else False for i in sites]
-        q = Queue(connection=conn)
-        results = q.enqueue(ope, station, min, times, rent, walktime, sites, job_timeout=6000)
-        return render_template('result.html', results = results,station=station,min=min,times=times,rent=rent,walktime=walktime,l=len(results))
-    else:
-        redirect('/')
-"""
-
 # 物件メモ登録確認画面
 @app.route('/update', methods=['post'])
 def update():
@@ -240,7 +213,7 @@ def delete():
     else:
         return redirect('/')
 
-# テスト
+# 検索
 @app.route('/search', methods=['get', 'post'])
 def test():
     if session_time_check():return redirect('/')
