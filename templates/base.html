@@ -25,7 +25,7 @@
         // FBアプリを起動し、ログインステータスのチェック
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '189741423327513',
+                appId      : process.env.FB_appId,
                 xfbml      : true,
                 version    : 'v12.0'
             });
